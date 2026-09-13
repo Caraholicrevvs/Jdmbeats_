@@ -1,57 +1,46 @@
-<!doctype html><html><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'>
-<title>RevSpec</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RevSpec — Global Automotive Database</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{background:#08090d;color:#fff;font-family:system-ui}
-header{background:#0c0d12;border-bottom:1px solid #22283a;padding:16px 20px;position:sticky;top:0}
-.logo{font-weight:900;letter-spacing:3px}
-.bar{max-width:900px;margin:auto;padding:12px;display:flex;gap:8px}
-.input{flex:1;background:#151821;border:1px solid #2a3247;border-radius:12px;padding:12px;color:#fff}
-.wrap{max-width:900px;margin:auto;padding:0 12px 80px;display:flex;flex-direction:column;gap:10px}
-.card{border:1px solid #2a3247;background:#12141d;border-radius:18px;overflow:hidden}
-.top{display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer}
-.logoBox{width:50px;height:50px;border-radius:12px;background:#fff;color:#000;display:grid;place-items:center;font-weight:900;font-size:20px}
-.arrow{width:38px;height:38px;border-radius:50%;background:#1e2433;border:1px solid #2a3247;display:grid;place-items:center;margin-left:auto}
-.card.open.arrow{transform:rotate(90deg);background:#fff;color:#000}
-.models{display:none;padding:0 10px 10px;grid-template-columns:1fr 1fr;gap:8px}
-.card.open.models{display:grid}
-@media(max-width:600px){.models{grid-template-columns:1fr}}
-.car{background:#0c0e15;border:1px solid #2a3247;border-radius:12px;overflow:hidden}
-.car img{width:100%;height:130px;object-fit:cover;background:#1a1f2e}
-.car b{font-size:12px;padding:6px;display:block}
-</style></head><body>
-<header><div style="max-width:900px;margin:auto;display:flex;justify-content:space-between"><div class=logo>REVSPEC.</div><div id=cnt style="color:#8d96ad;font-size:12px"></div></div></header>
-<div class=bar><input id=sB class=input placeholder="Search 400 brands"><input id=sM class=input placeholder="Search model"></div>
-<div class=wrap id=list></div>
-<script>
-const BRANDS = ["Maruti Suzuki","Tata Motors","Mahindra","Hyundai","Kia","Honda","Toyota","MG","Skoda","Volkswagen","Jeep","Citroen","Renault","Nissan","BYD","Tesla","BMW","Mercedes-Benz","Audi","Volvo","Lexus","Land Rover","Jaguar","Porsche","Ferrari","Lamborghini","Bentley","Rolls-Royce","McLaren","Maserati","Aston Martin","Mini","Force Motors","Ola Electric","Isuzu","Abarth","Acura","Alfa Romeo","Alpine","AITO","Arcfox","Avatr","BAIC","Baojun","Bestune","Buick","Cadillac","Changan","Chery","Chevrolet","Chrysler","Cupra","Dacia","Daewoo","Daihatsu","Dodge","Dongfeng","Voyah","DS","Fiat","Fisker","Ford","Foton","GAC","Genesis","GMC","Great Wall","Geely","Zeekr","Lynk & Co","Haval","Hongqi","JAC","Jetour","Koenigsegg","KTM","Lada","Lancia","Leapmotor","Li Auto","Lincoln","Lotus","Lucid","Maybach","Mazda","Mitsubishi","Nio","Neta","Opel","Pagani","Peugeot","Polestar","Ram","Rivian","Rimac","Seat","Smart","Subaru","Suzuki","VinFast","Wuling","W Motors","Xpeng","Xiaomi Auto","Zenvo","Yangwang","Denza","Tank","Wey","Deepal","Omoda","Jaecoo"];
-const REAL = {"Maruti Suzuki":["S-Presso","Alto K10","Celerio","Eeco","Wagon R","Ignis","Swift","Baleno","Dzire","Fronx","Brezza","Ertiga","Grand Vitara","E Vitara","XL6","Jimny","Invicto","Victoris"],"Tata Motors":["Tiago","Tigor","Altroz","Punch","Nexon","Curvv","Harrier","Safari","Harrier EV","Curvv EV"],"Mahindra":["Thar","Thar Roxx","Scorpio","Scorpio N","XUV 3XO","XUV400","XUV700","Bolero","BE 6","XEV 9e"]};
-function getModels(b){ if(REAL[b]) return REAL[b].map(n=>({name:n})); let a=[]; for(let i=0;i<18;i++) a.push({name:b.split(' ').pop()+' Model '+(i+1)}); return a; }
-function render(){
- const q=document.getElementById('sB').value.toLowerCase();
- const mq=document.getElementById('sM').value.toLowerCase();
- let f=BRANDS.filter(b=>{ if(q &&!b.toLowerCase().includes(q)) return false; if(mq &&!getModels(b).some(x=>x.name.toLowerCase().includes(mq))) return false; return true; });
- document.getElementById('cnt').textContent=f.length+' brands';
- document.getElementById('list').innerHTML=f.slice(0,120).map((b,i)=>`
-  <div class=card id=c-${i}>
-   <div class=top onclick="toggle(${i})">
-    <div class=logoBox>${b[0]}</div>
-    <div><div style="font-weight:700">${b}</div><div style="font-size:11px;color:#8d96ad">${(REAL[b]?REAL[b].length:18)} current models</div></div>
-    <div class=arrow>›</div>
-   </div>
-   <div class=models id=m-${i}></div>
-  </div>`).join(''); window._BRANDS=f;
-}
-let cache={};
-function toggle(i){
- const card=document.getElementById('c-'+i); const box=document.getElementById('m-'+i); const brand=window._BRANDS[i];
- if(card.classList.contains('open')){card.classList.remove('open');return;}
- card.classList.add('open');
- if(cache[i]){box.innerHTML=cache[i];return;}
- const ms=getModels(brand);
- const html=ms.map(m=>`<div class=car><img loading=lazy src="https://picsum.photos/seed/${encodeURIComponent(brand+m.name)}/400/300"><b>${m.name}</b></div>`).join('');
- box.innerHTML=html; cache[i]=html;
-}
-document.getElementById('sB').addEventListener('input',render);
-document.getElementById('sM').addEventListener('input',render);
-render();
-</script></body></html>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#08090d;--panel:#151820;--line:#272b35;--muted:#9299a8;--text:#f5f7fb}
+body{background:radial-gradient(circle at 15% 0%,#1a1d27 0,transparent 30%),radial-gradient(circle at 90% 10%,#171a22 0,transparent 25%),var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(18px);background:rgba(8,9,13,.86);border-bottom:1px solid var(--line)}
+.nav{max-width:1250px;margin:auto;padding:18px 22px;display:flex;justify-content:space-between}
+.logo{font-weight:900;letter-spacing:3px;font-size:22px}.logo span{color:#ff3c1a}
+.hero{max-width:1250px;margin:auto;padding:85px 22px 55px}
+.hero h1{font-size:clamp(48px,8vw,92px);line-height:.9;letter-spacing:-5px}
+.hero p{margin-top:20px;color:var(--muted);max-width:680px;line-height:1.7}
+.stats{max-width:1250px;margin:0 auto 50px;padding:0 22px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:linear-gradient(145deg,#151821,#0e1015);border:1px solid var(--line);border-radius:18px;padding:22px}.stat strong{font-size:28px;display:block}
+.section{max-width:1250px;margin:auto;padding:0 22px 65px}
+.sectionhead{display:flex;justify-content:space-between;margin-bottom:18px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.input,.select{background:#101219;color:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;flex:1;min-width:180px;outline:none}
+.letters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.l{width:36px;height:36px;border:1px solid var(--line);background:#101219;color:#aeb4c0;border-radius:10px;cursor:pointer}.l.active{background:#fff;color:#000}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.brand{min-height:155px;background:linear-gradient(145deg,#151820,#0d0f14);border:1px solid var(--line);border-radius:18px;padding:18px;position:relative;cursor:pointer;text-align:left;color:#fff}
+.brand:hover{transform:translateY(-3px);border-color:#5b616d}
+.blogo{width:54px;height:54px;background:#fff;border-radius:12px;padding:6px;object-fit:contain;display:block;margin-bottom:12px}
+.count{position:absolute;right:12px;top:12px;font-size:11px;color:#7e8593}
+.arrow{position:absolute;right:12px;bottom:12px;width:32px;height:32px;border-radius:50%;background:#1e2333;border:1px solid var(--line);display:grid;place-items:center}
+.profile{border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#151820,#0d0f14);padding:24px;margin-bottom:50px}
+.profiletop{display:flex;gap:16px;align-items:center;margin-bottom:16px}
+.plogo{width:88px;height:88px;background:#fff;border-radius:16px;padding:10px;object-fit:contain}
+.cargrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.car{background:#101218;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.car img{width:100%;height:170px;object-fit:cover;background:#191c24}
+.carbody{padding:12px}.carbody b{font-size:13px;display:block}.carbody small{color:var(--muted);font-size:11px}
+.spec{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.spec span{font-size:9px;background:#171a21;border-radius:6px;padding:4px 6px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.cargrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid,.cargrid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="logo">REV<span>SPEC</span></div><div id="cnt" style="color:var(--muted);font-size:12px"></div></div></header>
+<main>
+<section class="hero"><div style="font-size:11px;letter-spacing:3px;color:#9da4b2">GLOBAL AUTOMOTIVE DATABASE • 2026 • Wikipedia + Car.info</div><h1>Know the machine.</h1><p>400+ real world brands with current present-day models
