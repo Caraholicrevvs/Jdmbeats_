@@ -1,461 +1,393 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RevSpec — Global Car Database</title>
 
 <style>
 :root{
-    --bg:#07090d;
-    --panel:#0e1219;
-    --panel2:#131923;
-    --line:#242b36;
-    --text:#f5f7fa;
-    --muted:#8993a4;
-    --red:#ff4b2b;
-    --red2:#ff754d;
-    --green:#5ee6a8;
+  --bg:#07080b;
+  --panel:#0e1117;
+  --panel2:#131722;
+  --line:#242a35;
+  --text:#f4f7fb;
+  --muted:#8d97a8;
+  --accent:#ff4d2e;
+  --accent2:#ff8a3d
 }
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{box-sizing:border-box}
 
 body{
-    background:
-        radial-gradient(circle at 80% 0%,rgba(255,75,43,.12),transparent 30%),
-        radial-gradient(circle at 10% 40%,rgba(255,75,43,.05),transparent 25%),
-        var(--bg);
-    color:var(--text);
-    font-family:Inter,Arial,Helvetica,sans-serif;
+  margin:0;
+  background:radial-gradient(circle at 80% 0%,#1b1110 0,#07080b 38%);
+  color:var(--text);
+  font-family:Inter,system-ui,Arial,sans-serif
 }
-
-button,
-input,
-select{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-/* NAVBAR */
 
 header{
-    position:sticky;
-    top:0;
-    z-index:100;
-    backdrop-filter:blur(18px);
-    background:rgba(7,9,13,.82);
-    border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:5;
+  background:rgba(7,8,11,.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line)
 }
 
 .nav{
-    max-width:1450px;
-    margin:auto;
-    padding:18px 25px;
-    display:flex;
-    align-items:center;
-    gap:25px;
+  max-width:1400px;
+  margin:auto;
+  padding:18px 24px;
+  display:flex;
+  align-items:center;
+  gap:25px
 }
 
 .logo{
-    font-size:25px;
-    font-weight:950;
-    letter-spacing:-1px;
+  font-weight:900;
+  letter-spacing:-1px;
+  font-size:25px
 }
 
-.logo span{
-    color:var(--red);
+.logo b{
+  color:var(--accent)
 }
 
-.nav-badge{
-    margin-left:auto;
-    border:1px solid var(--line);
-    background:var(--panel);
-    color:var(--muted);
-    border-radius:999px;
-    padding:8px 13px;
-    font-size:11px;
-    letter-spacing:1px;
+.pill{
+  margin-left:auto;
+  color:var(--muted);
+  font-size:12px;
+  border:1px solid var(--line);
+  padding:8px 12px;
+  border-radius:999px
 }
-
-/* MAIN */
 
 main{
-    max-width:1450px;
-    margin:auto;
-    padding:50px 25px;
+  max-width:1400px;
+  margin:auto;
+  padding:42px 24px
 }
 
 .hero{
-    display:grid;
-    grid-template-columns:1.4fr .6fr;
-    gap:30px;
-    align-items:end;
-}
-
-.kicker{
-    color:var(--red);
-    font-size:12px;
-    font-weight:800;
-    letter-spacing:3px;
-    margin-bottom:15px;
+  display:grid;
+  grid-template-columns:1.4fr .6fr;
+  gap:25px;
+  align-items:end
 }
 
 h1{
-    font-size:clamp(48px,7vw,88px);
-    line-height:.88;
-    letter-spacing:-5px;
-    margin-bottom:25px;
+  font-size:clamp(42px,7vw,82px);
+  line-height:.9;
+  margin:0 0 18px;
+  letter-spacing:-4px
 }
 
-.hero h1 span{
-    color:var(--red);
+.hero p{
+  color:var(--muted);
+  max-width:700px;
+  font-size:16px;
+  line-height:1.6
 }
 
-.hero-text{
-    color:var(--muted);
-    max-width:720px;
-    line-height:1.7;
-    font-size:16px;
-}
-
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px
 }
 
 .stat{
-    background:linear-gradient(145deg,var(--panel2),var(--panel));
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:20px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:20px
 }
 
 .stat strong{
-    display:block;
-    font-size:27px;
-    margin-bottom:6px;
+  display:block;
+  font-size:28px
 }
 
-.stat small{
-    color:var(--muted);
-    font-size:10px;
-    letter-spacing:1px;
+.stat span{
+  color:var(--muted);
+  font-size:12px
 }
 
-/* SECTION */
-
-.section{
-    margin-top:55px;
+.toolbar{
+  margin:30px 0 18px;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:10px
 }
 
-.section-head{
-    display:flex;
-    align-items:end;
-    justify-content:space-between;
-    margin-bottom:18px;
+input,select{
+  width:100%;
+  background:var(--panel);
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:15px;
+  border-radius:13px;
+  outline:none
 }
 
-.section-head h2{
-    font-size:27px;
+input:focus,select:focus{
+  border-color:var(--accent)
 }
 
-.section-head p{
-    color:var(--muted);
-    font-size:13px;
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin:32px 0 14px
 }
 
-/* CONTROLS */
-
-.controls{
-    display:grid;
-    grid-template-columns:2fr 1fr 1fr;
-    gap:10px;
-    margin-bottom:15px;
+h2{
+  margin:0;
+  font-size:25px
 }
 
-input,
-select{
-    width:100%;
-    padding:15px;
-    border-radius:13px;
-    border:1px solid var(--line);
-    background:var(--panel);
-    color:var(--text);
-    outline:none;
+.muted{
+  color:var(--muted);
+  font-size:13px
 }
 
-input:focus,
-select:focus{
-    border-color:var(--red);
-}
-
-/* BRANDS */
-
-.brand-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(145px,1fr));
-    gap:9px;
-    max-height:390px;
-    overflow:auto;
-    padding-right:4px;
+.brands{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:9px;
+  max-height:330px;
+  overflow:auto;
+  padding-right:4px
 }
 
 .brand{
-    min-height:65px;
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:14px;
-    background:linear-gradient(145deg,var(--panel2),var(--panel));
-    transition:.2s;
-    cursor:pointer;
+  background:linear-gradient(145deg,var(--panel2),var(--panel));
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+  cursor:pointer;
+  transition:.2s;
+  min-height:62px
 }
 
-.brand:hover{
-    transform:translateY(-2px);
-    border-color:var(--red);
+.brand:hover,.brand.active{
+  border-color:var(--accent);
+  transform:translateY(-2px);
+  box-shadow:0 8px 30px #0008
 }
 
-.brand.active{
-    border-color:var(--red);
-    box-shadow:0 0 25px rgba(255,75,43,.12);
+.brand small{
+  display:block;
+  color:var(--muted);
+  margin-top:5px
 }
 
-.brand-name{
-    font-weight:800;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:14px
 }
 
-.brand-count{
-    display:block;
-    color:var(--muted);
-    margin-top:6px;
-    font-size:11px;
+.card{
+  background:linear-gradient(145deg,#11151d,#0b0d12);
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden
 }
 
-/* CARS */
-
-.car-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-    gap:15px;
+.visual{
+  height:155px;
+  background:linear-gradient(135deg,#191d27,#08090c);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:58px;
+  font-weight:900;
+  color:#252b38;
+  letter-spacing:-4px
 }
 
-.car-card{
-    overflow:hidden;
-    border:1px solid var(--line);
-    border-radius:20px;
-    background:linear-gradient(145deg,#111720,#0a0d12);
-    transition:.25s;
+.body{
+  padding:19px
 }
 
-.car-card:hover{
-    transform:translateY(-4px);
-    border-color:#3b424e;
+.brandname{
+  color:var(--accent);
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1.5px
 }
 
-.car-image{
-    width:100%;
-    height:205px;
-    object-fit:cover;
-    display:block;
-    background:#111;
+.model{
+  font-size:23px;
+  font-weight:800;
+  margin:4px 0 15px
 }
 
-.car-content{
-    padding:18px;
-}
-
-.car-brand{
-    color:var(--red);
-    font-size:11px;
-    font-weight:900;
-    text-transform:uppercase;
-    letter-spacing:1.5px;
-}
-
-.car-name{
-    font-size:22px;
-    font-weight:850;
-    margin:4px 0 15px;
-}
-
-.spec-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
+.specs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px
 }
 
 .spec{
-    background:#090c11;
-    border:1px solid #1c222c;
-    border-radius:10px;
-    padding:10px;
+  background:#0a0c10;
+  border:1px solid #1d222c;
+  border-radius:10px;
+  padding:9px
 }
 
 .spec span{
-    display:block;
-    color:var(--muted);
-    font-size:9px;
-    text-transform:uppercase;
-    letter-spacing:.7px;
-    margin-bottom:4px;
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase
 }
 
 .spec b{
-    font-size:12px;
+  font-size:13px
 }
 
-.compare-btn{
-    width:100%;
-    margin-top:12px;
-    padding:11px;
-    border-radius:10px;
-    border:1px solid var(--line);
-    background:#181d26;
-    color:white;
+.compare{
+  margin-top:12px;
+  width:100%;
+  border:1px solid var(--line);
+  background:#171b23;
+  color:white;
+  padding:11px;
+  border-radius:10px;
+  cursor:pointer
 }
 
-.compare-btn.selected{
-    background:var(--red);
-    border-color:var(--red);
+.compare.on{
+  background:var(--accent);
+  border-color:var(--accent)
 }
 
-.source{
-    margin-top:10px;
-    font-size:10px;
-    color:var(--muted);
+.empty{
+  padding:50px;
+  text-align:center;
+  color:var(--muted);
+  border:1px dashed var(--line);
+  border-radius:18px
 }
 
-.source a{
-    color:var(--red2);
+/* CARS24 SOURCE */
+
+.sources{
+  margin-top:45px;
 }
 
-/* COMPARISON */
-
-.compare-panel{
-    display:none;
+.source-card{
+  background:linear-gradient(145deg,#12161f,#0b0d12);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:22px;
 }
 
-.compare-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
+.source-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:18px;
 }
 
-.compare-card{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:20px;
+.source-name{
+  font-size:22px;
+  font-weight:900;
 }
 
-.compare-card h3{
-    margin-bottom:15px;
+.source-badge{
+  background:#17251b;
+  border:1px solid #294a32;
+  color:#83d991;
+  padding:7px 11px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
 }
 
-.compare-row{
-    display:flex;
-    justify-content:space-between;
-    gap:15px;
-    padding:10px 0;
-    border-bottom:1px solid #1c222b;
+.source-car{
+  display:grid;
+  grid-template-columns:1.5fr repeat(5,1fr);
+  gap:10px;
 }
 
-.compare-row span{
-    color:var(--muted);
-    font-size:12px;
+.source-item{
+  background:#0a0c10;
+  border:1px solid #1d222c;
+  border-radius:11px;
+  padding:12px;
 }
 
-.compare-row b{
-    text-align:right;
-    font-size:12px;
+.source-item span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  margin-bottom:5px;
 }
 
-/* STATUS */
-
-.status{
-    margin:15px 0;
-    color:var(--muted);
-    font-size:12px;
+.source-item b{
+  font-size:13px;
 }
 
-.loading{
-    padding:50px;
-    text-align:center;
-    color:var(--muted);
-    border:1px dashed var(--line);
-    border-radius:18px;
+.source-link{
+  display:inline-block;
+  margin-top:18px;
+  background:var(--accent);
+  color:#fff;
+  text-decoration:none;
+  padding:11px 16px;
+  border-radius:10px;
+  font-weight:800;
+  font-size:13px;
 }
 
-.error{
-    padding:25px;
-    border:1px solid #5a2820;
-    background:#24120f;
-    color:#ffad98;
-    border-radius:15px;
+.source-note{
+  margin-top:12px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
 }
-
-/* FOOTER */
 
 footer{
-    max-width:1450px;
-    margin:50px auto 0;
-    padding:25px;
-    border-top:1px solid var(--line);
-    color:var(--muted);
-    font-size:11px;
-    line-height:1.7;
+  max-width:1400px;
+  margin:50px auto;
+  padding:25px 24px;
+  color:var(--muted);
+  border-top:1px solid var(--line);
+  font-size:12px
 }
 
-@media(max-width:850px){
+@media(max-width:800px){
 
-    .hero{
-        grid-template-columns:1fr;
-    }
+  .hero{
+    grid-template-columns:1fr
+  }
 
-    .controls{
-        grid-template-columns:1fr;
-    }
+  .toolbar{
+    grid-template-columns:1fr
+  }
 
-    .compare-grid{
-        grid-template-columns:1fr;
-    }
+  .stats{
+    grid-template-columns:1fr 1fr 1fr
+  }
 
-    .dashboard{
-        grid-template-columns:1fr 1fr 1fr;
-    }
+  main{
+    padding:30px 15px
+  }
 
-    main{
-        padding:35px 15px;
-    }
+  .source-car{
+    grid-template-columns:1fr 1fr
+  }
 
-    h1{
-        letter-spacing:-3px;
-    }
-}
-
-@media(max-width:500px){
-
-    .dashboard{
-        grid-template-columns:1fr;
-    }
-
-    .nav-badge{
-        display:none;
-    }
+  .source-top{
+    align-items:flex-start;
+    flex-direction:column
+  }
 }
 </style>
 </head>
@@ -463,181 +395,211 @@ footer{
 <body>
 
 <header>
-    <div class="nav">
-        <div class="logo">
-            REV<span>SPEC</span>
-        </div>
-
-        <div class="nav-badge">
-            GLOBAL AUTOMOTIVE DATABASE
-        </div>
-    </div>
+  <div class="nav">
+    <div class="logo">REV<b>SPEC</b></div>
+    <div class="pill">GLOBAL AUTOMOTIVE DATABASE · 2026</div>
+  </div>
 </header>
-
 
 <main>
 
-<!-- HERO -->
-
 <section class="hero">
+  <div>
+    <div class="muted">THE AUTOMOTIVE DATABASE</div>
 
-    <div>
+    <h1>
+      Know the<br>
+      <span style="color:var(--accent)">machine.</span>
+    </h1>
 
-        <div class="kicker">
-            THE AUTOMOTIVE DATABASE
-        </div>
+    <p>
+      Explore manufacturers, performance cars, EVs, JDM icons,
+      supercars and more. Search, filter and compare specs in one
+      premium interface.
+    </p>
+  </div>
 
-        <h1>
-            KNOW THE<br>
-            <span>MACHINE.</span>
-        </h1>
+  <div class="stats">
 
-        <p class="hero-text">
-            Explore manufacturers and vehicles through a premium,
-            searchable automotive database. Search brands, discover
-            models, view available specifications and compare vehicles.
-        </p>
-
+    <div class="stat">
+      <strong>348+</strong>
+      <span>BRANDS INDEXED</span>
     </div>
 
-    <div class="dashboard">
-
-        <div class="stat">
-            <strong id="brandTotal">—</strong>
-            <small>MANUFACTURERS</small>
-        </div>
-
-        <div class="stat">
-            <strong id="modelTotal">—</strong>
-            <small>MODELS LOADED</small>
-        </div>
-
-        <div class="stat">
-            <strong>LIVE</strong>
-            <small>DATA ARCHITECTURE</small>
-        </div>
-
+    <div class="stat">
+      <strong>31</strong>
+      <span>CURATED MODELS</span>
     </div>
+
+    <div class="stat">
+      <strong>9</strong>
+      <span>CORE SPECS</span>
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+
+  <div class="section-title">
+    <h2>Manufacturers</h2>
+    <span class="muted">Tap a brand to filter</span>
+  </div>
+
+  <div class="toolbar">
+
+    <input
+      id="brandSearch"
+      placeholder="Search brands…"
+    >
+
+    <select id="country">
+      <option value="">All regions</option>
+      <option>Japan</option>
+      <option>Germany</option>
+      <option>USA</option>
+      <option>Italy</option>
+      <option>China</option>
+      <option>France</option>
+      <option>UK</option>
+      <option>South Korea</option>
+      <option>India</option>
+    </select>
+
+    <select id="sort">
+      <option value="az">A → Z</option>
+      <option value="za">Z → A</option>
+    </select>
+
+  </div>
+
+  <div id="brands" class="brands"></div>
 
 </section>
 
 
-<!-- BRANDS -->
+<section>
 
-<section class="section">
+  <div class="section-title">
+    <h2>Vehicle database</h2>
+    <span id="count" class="muted"></span>
+  </div>
 
-    <div class="section-head">
+  <div class="toolbar">
 
-        <div>
-            <h2>Manufacturers</h2>
-            <p>Search and select a manufacturer.</p>
-        </div>
+    <input
+      id="carSearch"
+      placeholder="Search model, brand, engine…"
+    >
 
-    </div>
+    <select id="drive">
+      <option value="">All drivetrains</option>
+      <option>RWD</option>
+      <option>AWD</option>
+      <option>FWD</option>
+    </select>
 
-    <div class="controls">
+    <select id="sortCars">
+      <option value="name">Name</option>
+      <option value="power">Power ↓</option>
+      <option value="zero">0–100 ↓</option>
+    </select>
 
-        <input
-            id="brandSearch"
-            type="text"
-            placeholder="Search manufacturer..."
-        >
+  </div>
 
-        <select id="brandSort">
-            <option value="az">A → Z</option>
-            <option value="za">Z → A</option>
-        </select>
-
-        <select id="yearSelect">
-            <option value="2026">2026</option>
-            <option value="2025">2025</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-        </select>
-
-    </div>
-
-    <div id="brandStatus" class="status">
-        Loading manufacturers...
-    </div>
-
-    <div id="brandGrid" class="brand-grid">
-        <div class="loading">
-            Loading global manufacturer database...
-        </div>
-    </div>
+  <div id="cars" class="grid"></div>
 
 </section>
 
 
-<!-- VEHICLES -->
+<section id="compareSection" style="display:none">
 
-<section class="section">
+  <div class="section-title">
+    <h2>Comparison</h2>
+    <span class="muted">Select up to 3 cars</span>
+  </div>
 
-    <div class="section-head">
-
-        <div>
-            <h2>Vehicle Database</h2>
-            <p id="vehicleInfo">
-                Select a manufacturer to load models.
-            </p>
-        </div>
-
-    </div>
-
-    <div class="controls">
-
-        <input
-            id="carSearch"
-            type="text"
-            placeholder="Search model..."
-        >
-
-        <select id="vehicleSort">
-            <option value="name">Model A → Z</option>
-        </select>
-
-        <select id="fuelFilter">
-            <option value="">All powertrains</option>
-            <option value="electric">Electric</option>
-            <option value="hybrid">Hybrid</option>
-            <option value="petrol">Petrol / ICE</option>
-        </select>
-
-    </div>
-
-    <div id="carStatus" class="status"></div>
-
-    <div id="carGrid" class="car-grid">
-
-        <div class="loading">
-            Select a manufacturer above.
-        </div>
-
-    </div>
+  <div id="compare" class="grid"></div>
 
 </section>
 
 
-<!-- COMPARISON -->
+<!-- CARS24 SOURCE SECTION -->
 
-<section
-    id="comparePanel"
-    class="section compare-panel"
->
+<section class="sources">
 
-    <div class="section-head">
+  <div class="section-title">
+    <h2>Web Sources</h2>
+    <span class="muted">Used-car reference data</span>
+  </div>
 
-        <div>
-            <h2>Comparison</h2>
-            <p>Compare up to three vehicles.</p>
-        </div>
+  <div class="source-card">
+
+    <div class="source-top">
+
+      <div>
+        <div class="muted">SOURCE</div>
+        <div class="source-name">Cars24</div>
+      </div>
+
+      <div class="source-badge">
+        SOURCE REFERENCE
+      </div>
 
     </div>
 
-    <div id="compareGrid" class="compare-grid"></div>
+
+    <div class="source-car">
+
+      <div class="source-item">
+        <span>Vehicle</span>
+        <b>2011 Toyota Corolla Petrol</b>
+      </div>
+
+      <div class="source-item">
+        <span>Year</span>
+        <b>2011</b>
+      </div>
+
+      <div class="source-item">
+        <span>Fuel</span>
+        <b>Petrol</b>
+      </div>
+
+      <div class="source-item">
+        <span>Odometer</span>
+        <b>1,12,168 km</b>
+      </div>
+
+      <div class="source-item">
+        <span>Transmission</span>
+        <b>Automatic</b>
+      </div>
+
+      <div class="source-item">
+        <span>Price shown</span>
+        <b>₹1.75 lakh</b>
+      </div>
+
+    </div>
+
+
+    <a
+      class="source-link"
+      href="https://www.cars24.com/buy-used-toyota-corolla-cars/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View Cars24 source →
+    </a>
+
+    <div class="source-note">
+      Source reference only. Price and availability can change on Cars24.
+      RevSpec does not automatically scrape or mirror Cars24 listings.
+    </div>
+
+  </div>
 
 </section>
 
@@ -645,973 +607,883 @@ footer{
 
 
 <footer>
-
-    <strong>RevSpec</strong> — Global Automotive Database.
-
-    <br>
-
-    Vehicle/manufacturer data in this demo architecture is retrieved
-    from NHTSA's public vPIC APIs where supported.
-
-    Images are searched through Wikimedia Commons. Individual image
-    licenses and attribution requirements must be checked before reuse.
-
-    <br><br>
-
-    This website is an independent project and is not affiliated with
-    any automobile manufacturer.
-
+  © 2026 RevSpec · Built as a static GitHub Pages database.
+  Performance figures marked * may vary by configuration/market.
+  Always verify manufacturer specifications before treating figures
+  as authoritative.
+  <br><br>
+  Cars24 source reference included for used-car listing examples.
 </footer>
 
 
 <script>
 
-/* ============================================================
-   REVSPEC DATA ARCHITECTURE
-   ============================================================
-
-   VEHICLE DATA SOURCE:
-   NHTSA vPIC
-   https://vpic.nhtsa.dot.gov/api/
-
-   IMAGE SOURCE:
-   Wikimedia Commons API
-   https://commons.wikimedia.org/w/api.php
-
-   IMPORTANT:
-   vPIC is not a complete worldwide database.
-   It is especially useful for vehicles/makes represented
-   in the NHTSA dataset.
-
-   ============================================================ */
-
-
-/* -----------------------------
-   API CONFIG
------------------------------ */
-
-const API = {
-
-    makes:
-        "https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json",
-
-    models:
-        "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/",
-
-    image:
-        "https://commons.wikimedia.org/w/api.php"
-
-};
-
-
-/* -----------------------------
-   GLOBAL STATE
------------------------------ */
-
-let allMakes = [];
-
-let selectedMake = null;
-
-let allModels = [];
-
-let compareCars = [];
-
-
-/* -----------------------------
-   DOM
------------------------------ */
-
-const brandGrid =
-    document.getElementById("brandGrid");
-
-const brandSearch =
-    document.getElementById("brandSearch");
-
-const brandSort =
-    document.getElementById("brandSort");
-
-const yearSelect =
-    document.getElementById("yearSelect");
-
-const carGrid =
-    document.getElementById("carGrid");
-
-const carSearch =
-    document.getElementById("carSearch");
-
-const carStatus =
-    document.getElementById("carStatus");
-
-const brandStatus =
-    document.getElementById("brandStatus");
-
-const comparePanel =
-    document.getElementById("comparePanel");
-
-const compareGrid =
-    document.getElementById("compareGrid");
-
-const brandTotal =
-    document.getElementById("brandTotal");
-
-const modelTotal =
-    document.getElementById("modelTotal");
-
-const vehicleInfo =
-    document.getElementById("vehicleInfo");
-
-
-/* ============================================================
-   LOAD MANUFACTURERS
-   ============================================================ */
-
-async function loadManufacturers(){
-
-    try{
-
-        brandStatus.textContent =
-            "Loading manufacturers...";
-
-        const response =
-            await fetch(API.makes);
-
-        if(!response.ok){
-            throw new Error("Manufacturer API failed");
-        }
-
-        const data =
-            await response.json();
-
-        allMakes =
-            data.Results || [];
-
-        /*
-            Remove duplicate manufacturer names.
-        */
-
-        const unique =
-            new Map();
-
-        allMakes.forEach(make => {
-
-            if(
-                make.Make_ID &&
-                make.Make_Name
-            ){
-
-                unique.set(
-                    make.Make_Name.toLowerCase(),
-                    make
-                );
-
-            }
-
-        });
-
-        allMakes =
-            [...unique.values()]
-            .sort((a,b)=>
-                a.Make_Name.localeCompare(b.Make_Name)
-            );
-
-        brandTotal.textContent =
-            allMakes.length + "+";
-
-        brandStatus.textContent =
-            allMakes.length +
-            " manufacturers loaded from the API.";
-
-        renderBrands();
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-        brandStatus.innerHTML =
-            `<div class="error">
-                Couldn't load the manufacturer API.
-                Check your internet connection and try again.
-            </div>`;
-
-        /*
-            FALLBACK BRANDS
-
-            This keeps the UI usable if the API
-            is temporarily unavailable.
-        */
-
-        allMakes = [
-
-            "Toyota",
-            "Nissan",
-            "Honda",
-            "BMW",
-            "Mercedes-Benz",
-            "Audi",
-            "Porsche",
-            "Ferrari",
-            "Lamborghini",
-            "McLaren",
-            "Ford",
-            "Chevrolet",
-            "Dodge",
-            "Lexus",
-            "Mazda",
-            "Subaru",
-            "Mitsubishi",
-            "Hyundai",
-            "Kia",
-            "Volkswagen",
-            "Volvo",
-            "Jaguar",
-            "Land Rover",
-            "Aston Martin",
-            "Bentley",
-            "Rolls-Royce",
-            "Bugatti",
-            "Koenigsegg",
-            "Pagani",
-            "Rimac",
-            "Tesla",
-            "BYD",
-            "Tata",
-            "Mahindra",
-            "Maruti Suzuki",
-            "Renault",
-            "Peugeot",
-            "Fiat",
-            "Alfa Romeo",
-            "Maserati"
-
-        ].map((name,index)=>({
-
-            Make_ID:index,
-            Make_Name:name
-
-        }));
-
-        brandTotal.textContent =
-            allMakes.length + "+";
-
-        renderBrands();
-
-    }
-
+/* =========================
+   MANUFACTURERS
+========================= */
+
+const BRANDS = [
+
+"AC","Acura","Abarth","Aixam","Alfa Romeo","Alpine",
+"Aston Martin","Audi","BAIC","Baojun","Bentley","BMW",
+"Bugatti","Buick","BYD","Cadillac","Chevrolet","Chrysler",
+"Citroën","Cupra","Dacia","Daewoo","Daihatsu","Dodge",
+"Dongfeng","DS Automobiles","FAW","Ferrari","Fiat","Ford",
+"Genesis","Geely","GMC","Great Wall","Haval","Honda",
+"Hongqi","Hyundai","Infiniti","Isuzu","JAC","Jaguar",
+"Jeep","Kia","Koenigsegg","Lamborghini","Lancia",
+"Land Rover","Lexus","Lincoln","Lotus","Lucid","Mahindra",
+"Maserati","Maybach","McLaren","Mercedes-Benz","Mercury",
+"MG","Mini","Mitsubishi","NIO","Nissan","Opel","Pagani",
+"Peugeot","Polestar","Porsche","Proton","RAM","Renault",
+"Rivian","Rolls-Royce","Saab","SEAT","Škoda","Smart",
+"Subaru","Suzuki","Tata","Tesla","Toyota","Vauxhall",
+"Volkswagen","Volvo","W Motors","AITO","Aion","Arcfox",
+"Avatr","Changan","Chery","Deepal","Denza","Exeed",
+"Fangchengbao","Foton","GAC","GAC Aion","Jetta","Jetour",
+"Li Auto","Leapmotor","Lynk & Co","Maxus","Neta","Omoda",
+"Ora","Seres","Tank","Voyah","Zeekr","Zotye","Wuling",
+"Roewe","Venucia","Bestune","Brilliance","Changan Nevo",
+"Chery Fulwin","Jiyue","Luxeed","Maextro","M-Hero",
+"Skyworth","Soueast","Trumpchi","Yangwang","Kaiyi","Karry",
+"Cowin","Dayun","Haima","JMC","Jinbei","Livan","Maple",
+"BAW","Beijing","Borgward","Changhe","Fujian","Gonow",
+"Hafei","King Long","Landwind","Nanjing","Qoros","Ranz",
+"Shuanghuan","SMA","Yema","Yudo","Zhonghua","Fisker",
+"Karma","Rimac","Saleen","Shelby","SSC","Rezvani","Czinger",
+"Drako","Faraday Future","Bollinger","Nikola","Aptera",
+"Canoo","Lordstown","Alpha Motor","Atlis","Brammo",
+"DeLorean","Hennessey","Panoz","Roush","Scion","Pontiac",
+"Saturn","Oldsmobile","Plymouth","Eagle","Geo","Vector",
+"Mosler","Spyker","Donkervoort","Gumpert","Wiesmann",
+"Artega","Melkus","Trabant","Wartburg","Bitter","Isdera",
+"Lotec","Apollo","Arash","Ariel","BAC","Bowler","Caterham",
+"Ginetta","Morgan","Noble","Radical","TVR","Ultima","Zenvo",
+"Marcos","Marussia","Tatra","Lada","UAZ","GAZ","AvtoVAZ",
+"Moskvitch","Aurora","Dartz","Kaipan","Praga","Aero","Togg",
+"Tofas","Anadol","Devrim","Etox","Iran Khodro","SAIPA",
+"Bahman","Pars Khodro","Kerman","MVM","Chery Iran",
+"Perodua","Bufori","Naza","Inokom","VinFast","Thaco",
+"Luxgen","Yulon","Mitsuoka","Datsun","Hino","UD Trucks",
+"Fuso","Scania","MAN","DAF","Iveco","Kamaz","KAMAZ","MAZ",
+"BelAZ","Ural","Ashok Leyland","Eicher","Force Motors",
+"Premier","Hindustan","Maruti Suzuki","TVS","Bajaj",
+"Tata Motors","Ola Electric","Pravaig","DC Design",
+"Mean Metal Motors","Raja Motors","Hycan","Human Horizons",
+"HiPhi","Aiways","Arcimoto","Aspark",
+"Automobili Pininfarina","Automobili Estrema","De Tomaso",
+"Elaris","Forthing","Geometry","GAC Trumpchi","Hozon",
+"Kandi","Mullen","Nio","Onvo","Rising Auto","Skywell",
+"Stelato","Stellar","Sunwoda","Tecno","Thunder Power",
+"Xpeng","Zhidou","Weltmeister","WM Motor","Beijing Auto",
+"GWM","SAIC","Alpina","DS","Mercedes-AMG","Mercedes-Maybach",
+"SsangYong","KGM","Samsung Motors","Renault Samsung","Mazda",
+"Brabham","Caparo","Daimler","Facel Vega",
+"Gordon Murray Automotive","Healey","Hispano Suiza",
+"Jensen","Lagonda","Moke","Monteverdi","Ruf","Talbot",
+"Vencer","Venturi","Zagato","Bristol","Pininfarina",
+"Sbarro","Tramontana","Tauro Auto","Tushek","VLF Automotive",
+"Mazzanti","Manhart","Brabus","Carlsson","ABT","Mansory",
+"TechArt","RUF","Gemballa","Hofele","AC Schnitzer","Hamann",
+"Novitec","Shelby American"
+
+];
+
+
+/* =========================
+   VEHICLE DATABASE
+========================= */
+
+const CARS = [
+
+{
+ brand:"Toyota",
+ model:"GR Supra 3.0",
+ engine:"3.0L Turbo I6",
+ power:"382 hp",
+ torque:"499 Nm",
+ zero:"4.1 s",
+ top:"250 km/h",
+ drive:"RWD",
+ trans:"8-speed auto / 6MT"
+},
+
+{
+ brand:"Nissan",
+ model:"Z",
+ engine:"3.0L Twin-Turbo V6",
+ power:"400 hp",
+ torque:"475 Nm",
+ zero:"4.5 s",
+ top:"250 km/h",
+ drive:"RWD",
+ trans:"9-speed auto / 6MT"
+},
+
+{
+ brand:"Honda",
+ model:"Civic Type R",
+ engine:"2.0L Turbo I4",
+ power:"315 hp",
+ torque:"420 Nm",
+ zero:"5.5 s",
+ top:"275 km/h",
+ drive:"FWD",
+ trans:"6-speed manual"
+},
+
+{
+ brand:"BMW",
+ model:"M2",
+ engine:"3.0L Twin-Turbo I6",
+ power:"473 hp",
+ torque:"550 Nm",
+ zero:"4.1 s",
+ top:"285 km/h*",
+ drive:"RWD",
+ trans:"8-speed auto / 6MT"
+},
+
+{
+ brand:"Porsche",
+ model:"911 Carrera",
+ engine:"3.0L Twin-Turbo Flat-6",
+ power:"388 hp",
+ torque:"450 Nm",
+ zero:"4.1 s",
+ top:"294 km/h",
+ drive:"RWD",
+ trans:"8-speed PDK"
+},
+
+{
+ brand:"Toyota",
+ model:"GR Yaris",
+ engine:"1.6L Turbo I3",
+ power:"300 hp",
+ torque:"400 Nm",
+ zero:"5.2 s",
+ top:"230 km/h",
+ drive:"AWD",
+ trans:"6-speed manual"
+},
+
+{
+ brand:"Ford",
+ model:"Mustang GT",
+ engine:"5.0L V8",
+ power:"480 hp",
+ torque:"562 Nm",
+ zero:"4.3 s",
+ top:"250 km/h",
+ drive:"RWD",
+ trans:"10-speed auto / 6MT"
+},
+
+{
+ brand:"Chevrolet",
+ model:"Corvette Stingray",
+ engine:"6.2L V8",
+ power:"490 hp",
+ torque:"637 Nm",
+ zero:"3.4 s",
+ top:"312 km/h",
+ drive:"RWD",
+ trans:"8-speed DCT"
+},
+
+{
+ brand:"Ferrari",
+ model:"296 GTB",
+ engine:"3.0L Twin-Turbo V6 Hybrid",
+ power:"819 hp",
+ torque:"740 Nm",
+ zero:"2.9 s",
+ top:"330 km/h",
+ drive:"RWD",
+ trans:"8-speed DCT"
+},
+
+{
+ brand:"Lamborghini",
+ model:"Revuelto",
+ engine:"6.5L V12 Hybrid",
+ power:"1001 hp",
+ torque:"725 Nm",
+ zero:"2.5 s",
+ top:"350 km/h",
+ drive:"AWD",
+ trans:"8-speed DCT"
+},
+
+{
+ brand:"McLaren",
+ model:"750S",
+ engine:"4.0L Twin-Turbo V8",
+ power:"740 hp",
+ torque:"800 Nm",
+ zero:"2.8 s",
+ top:"332 km/h",
+ drive:"RWD",
+ trans:"7-speed DCT"
+},
+
+{
+ brand:"Porsche",
+ model:"Taycan Turbo GT",
+ engine:"Dual-motor EV",
+ power:"1019 hp",
+ torque:"1340 Nm",
+ zero:"2.2 s",
+ top:"305 km/h",
+ drive:"AWD",
+ trans:"2-speed rear"
+},
+
+{
+ brand:"Tesla",
+ model:"Model 3 Performance",
+ engine:"Dual-motor EV",
+ power:"~627 hp",
+ torque:"~741 Nm",
+ zero:"3.1 s",
+ top:"262 km/h",
+ drive:"AWD",
+ trans:"Single-speed"
+},
+
+{
+ brand:"Hyundai",
+ model:"Ioniq 5 N",
+ engine:"Dual-motor EV",
+ power:"641 hp",
+ torque:"770 Nm",
+ zero:"3.25 s",
+ top:"260 km/h",
+ drive:"AWD",
+ trans:"Single-speed"
+},
+
+{
+ brand:"Kia",
+ model:"EV6 GT",
+ engine:"Dual-motor EV",
+ power:"576 hp",
+ torque:"740 Nm",
+ zero:"3.5 s",
+ top:"260 km/h",
+ drive:"AWD",
+ trans:"Single-speed"
+},
+
+{
+ brand:"BMW",
+ model:"M3 Competition xDrive",
+ engine:"3.0L Twin-Turbo I6",
+ power:"523 hp",
+ torque:"650 Nm",
+ zero:"3.4 s",
+ top:"290 km/h*",
+ drive:"AWD",
+ trans:"8-speed auto"
+},
+
+{
+ brand:"Mercedes-AMG",
+ model:"C 63 S E Performance",
+ engine:"2.0L Turbo I4 + EV",
+ power:"671 hp",
+ torque:"1020 Nm",
+ zero:"3.4 s",
+ top:"280 km/h",
+ drive:"AWD",
+ trans:"9-speed auto"
+},
+
+{
+ brand:"Audi",
+ model:"RS 3",
+ engine:"2.5L Turbo I5",
+ power:"394 hp",
+ torque:"500 Nm",
+ zero:"3.8 s",
+ top:"290 km/h*",
+ drive:"AWD",
+ trans:"7-speed DCT"
+},
+
+{
+ brand:"Nissan",
+ model:"GT-R",
+ engine:"3.8L Twin-Turbo V6",
+ power:"565 hp",
+ torque:"633 Nm",
+ zero:"2.8 s",
+ top:"315 km/h",
+ drive:"AWD",
+ trans:"6-speed DCT"
+},
+
+{
+ brand:"Subaru",
+ model:"WRX STI",
+ engine:"2.5L Turbo Flat-4",
+ power:"310 hp",
+ torque:"393 Nm",
+ zero:"5.2 s",
+ top:"255 km/h",
+ drive:"AWD",
+ trans:"6-speed manual"
+},
+
+{
+ brand:"Mazda",
+ model:"MX-5 Miata",
+ engine:"2.0L I4",
+ power:"181 hp",
+ torque:"205 Nm",
+ zero:"6.5 s",
+ top:"219 km/h",
+ drive:"RWD",
+ trans:"6-speed manual"
+},
+
+{
+ brand:"Lexus",
+ model:"LC 500",
+ engine:"5.0L V8",
+ power:"471 hp",
+ torque:"540 Nm",
+ zero:"4.4 s",
+ top:"270 km/h",
+ drive:"RWD",
+ trans:"10-speed auto"
+},
+
+{
+ brand:"Aston Martin",
+ model:"Vantage",
+ engine:"4.0L Twin-Turbo V8",
+ power:"656 hp",
+ torque:"800 Nm",
+ zero:"3.4 s",
+ top:"325 km/h",
+ drive:"RWD",
+ trans:"8-speed auto"
+},
+
+{
+ brand:"Bentley",
+ model:"Continental GT Speed",
+ engine:"4.0L Twin-Turbo V8 Hybrid",
+ power:"771 hp",
+ torque:"1000 Nm",
+ zero:"3.2 s",
+ top:"335 km/h",
+ drive:"AWD",
+ trans:"8-speed DCT"
+},
+
+{
+ brand:"Bugatti",
+ model:"Chiron Super Sport",
+ engine:"8.0L Quad-Turbo W16",
+ power:"1578 hp",
+ torque:"1600 Nm",
+ zero:"2.4 s",
+ top:"440 km/h",
+ drive:"AWD",
+ trans:"7-speed DCT"
+},
+
+{
+ brand:"Koenigsegg",
+ model:"Jesko",
+ engine:"5.0L Twin-Turbo V8",
+ power:"1281 hp",
+ torque:"1500 Nm",
+ zero:"~2.5 s*",
+ top:"480+ km/h*",
+ drive:"RWD",
+ trans:"9-speed LST"
+},
+
+{
+ brand:"Pagani",
+ model:"Utopia",
+ engine:"6.0L Twin-Turbo V12",
+ power:"852 hp",
+ torque:"1100 Nm",
+ zero:"~3.0 s*",
+ top:"350 km/h*",
+ drive:"RWD",
+ trans:"7-speed manual/AMT"
+},
+
+{
+ brand:"Rimac",
+ model:"Nevera",
+ engine:"Quad-motor EV",
+ power:"1914 hp",
+ torque:"2360 Nm",
+ zero:"1.81 s",
+ top:"412 km/h",
+ drive:"AWD",
+ trans:"Single-speed"
+},
+
+{
+ brand:"Lucid",
+ model:"Air Sapphire",
+ engine:"Tri-motor EV",
+ power:"1234 hp",
+ torque:"1938 Nm",
+ zero:"1.89 s",
+ top:"330 km/h",
+ drive:"AWD",
+ trans:"Single-speed"
+},
+
+{
+ brand:"BYD",
+ model:"Seal Performance",
+ engine:"Dual-motor EV",
+ power:"523 hp",
+ torque:"670 Nm",
+ zero:"3.8 s",
+ top:"260 km/h",
+ drive:"AWD",
+ trans:"Single-speed"
+},
+
+/* Cars24 example */
+
+{
+ brand:"Toyota",
+ model:"Corolla — Cars24 Used",
+ engine:"Petrol",
+ power:"Not listed",
+ torque:"Not listed",
+ zero:"Not listed",
+ top:"Not listed",
+ drive:"Not listed",
+ trans:"Automatic"
 }
 
+];
 
-/* ============================================================
+
+let selectedBrand="";
+let compare=[];
+
+const $=id=>document.getElementById(id);
+
+
+/* =========================
    RENDER BRANDS
-   ============================================================ */
+========================= */
 
 function renderBrands(){
 
-    const query =
-        brandSearch.value
-        .trim()
-        .toLowerCase();
+  let q=$("brandSearch").value.toLowerCase();
 
-    let brands =
-        allMakes.filter(make => {
+  let arr=BRANDS.filter(
+    b=>b.toLowerCase().includes(q)
+  );
 
-            const name =
-                typeof make === "string"
-                    ? make
-                    : make.Make_Name;
+  arr.sort(
+    (a,b)=>
+      $("sort").value==="az"
+      ?a.localeCompare(b)
+      :b.localeCompare(a)
+  );
 
-            return name
-                .toLowerCase()
-                .includes(query);
+  $("brands").innerHTML=arr.map(
 
-        });
+    b=>`
 
-    if(brandSort.value === "za"){
+      <div
+        class="brand ${selectedBrand===b?'active':''}"
+        onclick="pickBrand(${JSON.stringify(b)})"
+      >
 
-        brands.reverse();
+        <b>${b}</b>
 
-    }
+        <small>
+          View models →
+        </small>
 
-    if(brands.length === 0){
+      </div>
 
-        brandGrid.innerHTML =
-            `<div class="loading">
-                No manufacturer found.
-            </div>`;
+    `
 
-        return;
-
-    }
-
-    brandGrid.innerHTML =
-        brands.map(make => {
-
-            const name =
-                typeof make === "string"
-                    ? make
-                    : make.Make_Name;
-
-            const active =
-                selectedMake &&
-                selectedMake.toLowerCase() ===
-                name.toLowerCase();
-
-            return `
-
-                <div
-                    class="brand ${active ? "active" : ""}"
-                    onclick="selectBrand('${escapeJS(name)}')"
-                >
-
-                    <div class="brand-name">
-                        ${escapeHTML(name)}
-                    </div>
-
-                    <span class="brand-count">
-                        Explore models →
-                    </span>
-
-                </div>
-
-            `;
-
-        }).join("");
+  ).join("");
 
 }
 
 
-/* ============================================================
-   SELECT BRAND
-   ============================================================ */
+/* =========================
+   BRAND FILTER
+========================= */
 
-async function selectBrand(make){
+function pickBrand(b){
 
-    selectedMake = make;
+  selectedBrand=
+    selectedBrand===b
+    ?""
+    :b;
 
-    renderBrands();
+  renderBrands();
+  renderCars();
 
-    carGrid.innerHTML =
-        `<div class="loading">
-            Loading ${escapeHTML(make)} models...
-        </div>`;
-
-    carStatus.textContent =
-        "Requesting vehicle database...";
-
-    vehicleInfo.textContent =
-        "Manufacturer: " + make;
-
-    await loadModels(make);
+  window.scrollTo({
+    top:$("cars").offsetTop-100,
+    behavior:"smooth"
+  });
 
 }
 
 
-/* ============================================================
-   LOAD MODELS
-   ============================================================ */
-
-async function loadModels(make){
-
-    const year =
-        yearSelect.value;
-
-    try{
-
-        const url =
-            API.models +
-            encodeURIComponent(make) +
-            "/modelyear/" +
-            year +
-            "?format=json";
-
-        const response =
-            await fetch(url);
-
-        if(!response.ok){
-
-            throw new Error(
-                "Model API request failed"
-            );
-
-        }
-
-        const data =
-            await response.json();
-
-        allModels =
-            data.Results || [];
-
-        modelTotal.textContent =
-            allModels.length;
-
-        carStatus.textContent =
-            allModels.length +
-            " models found for " +
-            make +
-            " (" + year + ").";
-
-        renderCars();
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-        carStatus.textContent =
-            "Unable to load models.";
-
-        carGrid.innerHTML =
-            `<div class="error">
-                Model data could not be loaded for this
-                manufacturer/year.
-            </div>`;
-
-    }
-
-}
-
-
-/* ============================================================
+/* =========================
    RENDER CARS
-   ============================================================ */
+========================= */
 
 function renderCars(){
 
-    const query =
-        carSearch.value
-        .trim()
-        .toLowerCase();
+  let q=$("carSearch").value.toLowerCase();
+  let d=$("drive").value;
 
-    let models =
-        allModels.filter(model => {
+  let arr=CARS.filter(
 
-            const name =
-                model.Model_Name || "";
+    c=>
+      (!selectedBrand || c.brand===selectedBrand)
+      &&
+      (!d || c.drive===d)
+      &&
+      Object.values(c)
+        .join(" ")
+        .toLowerCase()
+        .includes(q)
 
-            return name
-                .toLowerCase()
-                .includes(query);
+  );
 
-        });
 
-    models.sort((a,b)=>
-        (a.Model_Name || "")
+  if($("sortCars").value==="power"){
+
+    arr.sort(
+      (a,b)=>
+        parseInt(b.power)-parseInt(a.power)
+    );
+
+  }
+
+
+  if($("sortCars").value==="zero"){
+
+    arr.sort(
+      (a,b)=>
+        parseFloat(a.zero)-parseFloat(b.zero)
+    );
+
+  }
+
+  else if($("sortCars").value==="name"){
+
+    arr.sort(
+      (a,b)=>
+        (a.brand+" "+a.model)
         .localeCompare(
-            b.Model_Name || ""
+          b.brand+" "+b.model
         )
     );
 
-    if(models.length === 0){
+  }
 
-        carGrid.innerHTML =
-            `<div class="loading">
-                No matching models.
-            </div>`;
 
-        return;
+  $("count").textContent=
+    arr.length+
+    " model"+
+    (arr.length===1?"":"s")+
+    " shown";
 
-    }
 
-    carGrid.innerHTML =
-        models.map((model,index) => {
+  $("cars").innerHTML=
 
-            return createCarCard(
-                selectedMake,
-                model.Model_Name,
-                index
-            );
+    arr.length
 
-        }).join("");
+    ?
 
-    /*
-        After cards are rendered,
-        request images asynchronously.
-    */
+    arr.map(
+      (c,i)=>card(c,i)
+    ).join("")
 
-    models.forEach((model,index)=>{
+    :
 
-        loadCarImage(
-            selectedMake,
-            model.Model_Name,
-            index
-        );
-
-    });
+    `<div class="empty">
+      No vehicles match your filters.
+    </div>`;
 
 }
 
 
-/* ============================================================
+/* =========================
    CAR CARD
-   ============================================================ */
+========================= */
 
-function createCarCard(
-    brand,
-    model,
-    index
-){
+function card(c,i){
 
-    const id =
-        "car-image-" + index;
+  let key=
+    c.brand+"|"+c.model;
 
-    const key =
-        brand + "|" + model;
+  return `
 
-    const selected =
-        compareCars.some(
-            car =>
-                car.key === key
-        );
+    <article class="card">
 
-    return `
+      <div class="visual">
+        ${c.brand.slice(0,2).toUpperCase()}
+      </div>
 
-        <article class="car-card">
+      <div class="body">
 
-            <img
-                id="${id}"
-                class="car-image"
-                src="${placeholderImage()}"
-                alt="${escapeHTML(brand + " " + model)}"
-            >
+        <div class="brandname">
+          ${c.brand}
+        </div>
 
-            <div class="car-content">
+        <div class="model">
+          ${c.model}
+        </div>
 
-                <div class="car-brand">
-                    ${escapeHTML(brand)}
-                </div>
+        <div class="specs">
 
-                <div class="car-name">
-                    ${escapeHTML(model)}
-                </div>
+          <div class="spec">
+            <span>Engine</span>
+            <b>${c.engine}</b>
+          </div>
 
-                <div class="spec-grid">
+          <div class="spec">
+            <span>Power</span>
+            <b>${c.power}</b>
+          </div>
+
+          <div class="spec">
+            <span>Torque</span>
+            <b>${c.torque}</b>
+          </div>
+
+          <div class="spec">
+            <span>0–100</span>
+            <b>${c.zero}</b>
+          </div>
+
+          <div class="spec">
+            <span>Top speed</span>
+            <b>${c.top}</b>
+          </div>
+
+          <div class="spec">
+            <span>Drive</span>
+            <b>${c.drive}</b>
+          </div>
+
+          <div
+            class="spec"
+            style="grid-column:1/-1"
+          >
+            <span>Transmission</span>
+            <b>${c.trans}</b>
+          </div>
+
+        </div>
+
+
+        <button
+          class="compare ${compare.includes(key)?'on':''}"
+          onclick='toggleCompare(${JSON.stringify(c)})'
+        >
+
+          ${
+            compare.includes(key)
+            ?"✓ Added to comparison"
+            :"＋ Compare"
+          }
+
+        </button>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+/* =========================
+   COMPARISON
+========================= */
+
+function toggleCompare(c){
+
+  let key=
+    c.brand+"|"+c.model;
+
+
+  if(
+    compare.some(
+      x=>x.brand+"|"+x.model===key
+    )
+  ){
+
+    compare=
+      compare.filter(
+        x=>x.brand+"|"+x.model!==key
+      );
+
+  }
+
+  else if(compare.length<3){
+
+    compare.push(c);
+
+  }
+
+  else{
+
+    alert(
+      "Comparison is limited to 3 cars."
+    );
+
+  }
+
+
+  renderCars();
+  renderCompare();
+
+}
+
+
+/* =========================
+   RENDER COMPARISON
+========================= */
+
+function renderCompare(){
+
+  $("compareSection").style.display=
+    compare.length
+    ?"block"
+    :"none";
+
+
+  $("compare").innerHTML=
+
+    compare.map(
+
+      c=>`
+
+        <article class="card">
+
+          <div class="body">
+
+            <div class="brandname">
+              ${c.brand}
+            </div>
+
+            <div class="model">
+              ${c.model}
+            </div>
+
+            <div class="specs">
+
+              ${
+                [
+                  "engine",
+                  "power",
+                  "torque",
+                  "zero",
+                  "top",
+                  "drive",
+                  "trans"
+                ]
+
+                .map(
+
+                  (k,i)=>`
 
                     <div class="spec">
-                        <span>Model year</span>
-                        <b>${yearSelect.value}</b>
+
+                      <span>
+                        ${
+                          [
+                            "Engine",
+                            "Power",
+                            "Torque",
+                            "0–100",
+                            "Top speed",
+                            "Drive",
+                            "Transmission"
+                          ][i]
+                        }
+                      </span>
+
+                      <b>
+                        ${c[k]}
+                      </b>
+
                     </div>
 
-                    <div class="spec">
-                        <span>Data source</span>
-                        <b>vPIC</b>
-                    </div>
+                  `
 
-                    <div class="spec">
-                        <span>Engine</span>
-                        <b>See manufacturer spec</b>
-                    </div>
-
-                    <div class="spec">
-                        <span>Power</span>
-                        <b>See manufacturer spec</b>
-                    </div>
-
-                    <div class="spec">
-                        <span>Torque</span>
-                        <b>See manufacturer spec</b>
-                    </div>
-
-                    <div class="spec">
-                        <span>Drivetrain</span>
-                        <b>See variant</b>
-                    </div>
-
-                </div>
-
-                <button
-                    class="compare-btn ${selected ? "selected" : ""}"
-                    onclick="toggleCompare(
-                        '${escapeJS(brand)}',
-                        '${escapeJS(model)}'
-                    )"
-                >
-                    ${selected
-                        ? "✓ Added to comparison"
-                        : "＋ Add to comparison"}
-                </button>
-
-                <div class="source">
-                    Vehicle data:
-                    <a
-                        href="https://vpic.nhtsa.dot.gov/"
-                        target="_blank"
-                        rel="noopener"
-                    >
-                        NHTSA vPIC
-                    </a>
-                </div>
+                ).join("")
+              }
 
             </div>
 
+          </div>
+
         </article>
 
-    `;
+      `
+
+    ).join("");
 
 }
 
 
-/* ============================================================
-   WIKIMEDIA COMMONS IMAGE SEARCH
-   ============================================================ */
+/* =========================
+   SEARCH / FILTER EVENTS
+========================= */
+
+[
+  "brandSearch",
+  "sort",
+  "carSearch",
+  "drive",
+  "sortCars"
+]
+
+.forEach(
+
+  id=>
+
+    $(id).addEventListener(
+      "input",
+      ()=>{
+        renderBrands();
+        renderCars();
+      }
+    )
 
-async function loadCarImage(
-    brand,
-    model,
-    index
-){
-
-    const imageElement =
-        document.getElementById(
-            "car-image-" + index
-        );
-
-    if(!imageElement){
-        return;
-    }
-
-    const search =
-        encodeURIComponent(
-            brand + " " + model + " car"
-        );
-
-    const url =
-        API.image +
-        "?action=query" +
-        "&generator=search" +
-        "&gsrsearch=" + search +
-        "&gsrnamespace=6" +
-        "&gsrlimit=1" +
-        "&prop=imageinfo" +
-        "&iiprop=url" +
-        "&iiurlwidth=900" +
-        "&format=json" +
-        "&origin=*";
-
-    try{
-
-        const response =
-            await fetch(url);
-
-        const data =
-            await response.json();
-
-        const pages =
-            data.query &&
-            data.query.pages;
-
-        if(!pages){
-            return;
-        }
-
-        const first =
-            Object.values(pages)[0];
-
-        if(
-            first &&
-            first.imageinfo &&
-            first.imageinfo[0]
-        ){
-
-            const image =
-                first.imageinfo[0];
-
-            imageElement.src =
-                image.thumburl ||
-                image.url;
-
-            /*
-                The image itself links to
-                Wikimedia's file page when clicked.
-            */
-
-            imageElement.style.cursor =
-                "pointer";
-
-            imageElement.onclick = ()=>{
-
-                if(first.fullurl){
-
-                    window.open(
-                        first.fullurl,
-                        "_blank"
-                    );
-
-                }
-
-            };
-
-        }
-
-    }
-
-    catch(error){
-
-        console.log(
-            "Image search failed:",
-            error
-        );
-
-    }
-
-}
-
-
-/* ============================================================
-   COMPARISON SYSTEM
-   ============================================================ */
-
-function toggleCompare(
-    brand,
-    model
-){
-
-    const key =
-        brand + "|" + model;
-
-    const existing =
-        compareCars.find(
-            car =>
-                car.key === key
-        );
-
-    if(existing){
-
-        compareCars =
-            compareCars.filter(
-                car =>
-                    car.key !== key
-            );
-
-    }
-
-    else{
-
-        if(compareCars.length >= 3){
-
-            alert(
-                "You can compare up to 3 cars."
-            );
-
-            return;
-
-        }
-
-        compareCars.push({
-
-            key,
-            brand,
-            model
-
-        });
-
-    }
-
-    renderCars();
-
-    renderComparison();
-
-}
-
-
-/* ============================================================
-   RENDER COMPARISON
-   ============================================================ */
-
-function renderComparison(){
-
-    if(compareCars.length === 0){
-
-        comparePanel.style.display =
-            "none";
-
-        return;
-
-    }
-
-    comparePanel.style.display =
-        "block";
-
-    compareGrid.innerHTML =
-        compareCars.map(car => {
-
-            return `
-
-                <div class="compare-card">
-
-                    <div class="car-brand">
-                        ${escapeHTML(car.brand)}
-                    </div>
-
-                    <h3>
-                        ${escapeHTML(car.model)}
-                    </h3>
-
-                    <div class="compare-row">
-                        <span>Model year</span>
-                        <b>${yearSelect.value}</b>
-                    </div>
-
-                    <div class="compare-row">
-                        <span>Manufacturer</span>
-                        <b>${escapeHTML(car.brand)}</b>
-                    </div>
-
-                    <div class="compare-row">
-                        <span>Model</span>
-                        <b>${escapeHTML(car.model)}</b>
-                    </div>
-
-                    <div class="compare-row">
-                        <span>Engine</span>
-                        <b>Variant dependent</b>
-                    </div>
-
-                    <div class="compare-row">
-                        <span>Power</span>
-                        <b>Variant dependent</b>
-                    </div>
-
-                    <div class="compare-row">
-                        <span>Torque</span>
-                        <b>Variant dependent</b>
-                    </div>
-
-                    <div class="compare-row">
-                        <span>Drivetrain</span>
-                        <b>Variant dependent</b>
-                    </div>
-
-                    <button
-                        class="compare-btn selected"
-                        onclick="toggleCompare(
-                            '${escapeJS(car.brand)}',
-                            '${escapeJS(car.model)}'
-                        )"
-                    >
-                        Remove
-                    </button>
-
-                </div>
-
-            `;
-
-        }).join("");
-
-}
-
-
-/* ============================================================
-   PLACEHOLDER IMAGE
-   ============================================================ */
-
-function placeholderImage(){
-
-    return "data:image/svg+xml," +
-        encodeURIComponent(`
-
-        <svg xmlns="http://www.w3.org/2000/svg"
-             width="900"
-             height="500"
-             viewBox="0 0 900 500">
-
-            <rect
-                width="900"
-                height="500"
-                fill="#11151c"/>
-
-            <text
-                x="450"
-                y="255"
-                text-anchor="middle"
-                fill="#303744"
-                font-family="Arial"
-                font-size="55"
-                font-weight="900">
-                REVSPEC
-            </text>
-
-        </svg>
-
-        `);
-
-}
-
-
-/* ============================================================
-   SECURITY / HTML HELPERS
-   ============================================================ */
-
-function escapeHTML(value){
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
-
-
-function escapeJS(value){
-
-    return String(value)
-        .replaceAll("\\","\\\\")
-        .replaceAll("'","\\'")
-        .replaceAll("\n"," ");
-
-}
-
-
-/* ============================================================
-   EVENTS
-   ============================================================ */
-
-brandSearch.addEventListener(
-    "input",
-    renderBrands
-);
-
-brandSort.addEventListener(
-    "change",
-    renderBrands
-);
-
-yearSelect.addEventListener(
-    "change",
-    ()=>{
-
-        if(selectedMake){
-
-            loadModels(
-                selectedMake
-            );
-
-        }
-
-    }
-);
-
-carSearch.addEventListener(
-    "input",
-    renderCars
 );
 
 
-/* ============================================================
-   START APP
-   ============================================================ */
+/* =========================
+   INITIAL LOAD
+========================= */
 
-loadManufacturers();
+renderBrands();
+renderCars();
 
 </script>
 
 </body>
-        </html>    
-        
-    <div class="source">
-  Data sources: Cars24 · Manufacturer specifications · Other verified sources
-    </div> 
-                                        
+          </html>
