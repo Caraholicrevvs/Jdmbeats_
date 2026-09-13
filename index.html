@@ -1,179 +1,44 @@
-
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RevSpec — Global Car Database</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RevSpec — 400+ Brands | 12,000+ Models</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#08090d;--panel:#101218;--line:#272b35;--text:#f5f7fb;--muted:#9299a8}
-body{background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
-header{position:sticky;top:0;z-index:50;background:rgba(8,9,13,.9);backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
-.nav{max-width:1350px;margin:auto;padding:18px 22px;display:flex;justify-content:space-between}
-.logo{font-size:22px;font-weight:900;letter-spacing:3px}
-.hero{max-width:1350px;margin:auto;padding:60px 22px}
-h1{font-size:clamp(40px,8vw,80px);letter-spacing:-4px}
-.stats{max-width:1350px;margin:0 auto 30px;padding:0 22px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.stat{background:#151821;border:1px solid var(--line);border-radius:18px;padding:20px}
-.stat strong{font-size:28px}
-.section{max-width:1350px;margin:auto;padding:0 22px 60px}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}
-.input,.select{background:#101219;color:white;border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none}
-.input{flex:1;min-width:220px}
-.letters{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
-.letter{width:36px;height:36px;border:1px solid var(--line);background:#101219;color:#aeb4c0;border-radius:10px}
-.letter.active,.letter:hover{background:#fff;color:#000}
-.brandgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.brand{background:#101218;border:1px solid var(--line);border-radius:18px;padding:20px;text-align:left;transition:.2s}
-.brand:hover{transform:translateY(-3px);border-color:#555}
-.brandlogo{width:50px;height:50px;background:#fff;border-radius:12px;padding:6px;object-fit:contain;margin-bottom:12px}
-.brand h3{font-size:17px}
-.brand small{color:var(--muted)}
-.cargrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.car{background:#101218;border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.2s}
-.car:hover{transform:translateY(-3px)}
-.carimg{width:100%;height:180px;object-fit:cover;background:#191c24;display:block}
-.carbody{padding:14px}
-.specrow{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:10px}
-.spec{background:#171a21;border-radius:8px;padding:8px}
-.spec b{font-size:12px}
-.spec span{font-size:10px;color:#7f8694}
-.btn{border:1px solid var(--line);background:#171a21;color:white;border-radius:8px;padding:8px 12px;font-size:12px;cursor:pointer}
-.btn.primary{background:#fff;color:#000}
-#brandProfile{display:none}
-.profile{border:1px solid var(--line);border-radius:24px;background:#101218;padding:28px}
-.profiletop{display:flex;gap:18px;align-items:center}
-.profilelogo{width:90px;height:90px;background:#fff;border-radius:18px;padding:10px;object-fit:contain}
-@media(max-width:900px){.brandgrid,.cargrid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.brandgrid,.cargrid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+:root{--bg:#08090d;--card:#151821;--line:#252c3a;--text:#f5f7fb;--muted:#9aa3b5}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif}
+header{position:sticky;top:0;z-index:20;background:rgba(8,9,13,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{max-width:900px;margin:auto;padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;letter-spacing:3px;font-size:22px}
+.search{max-width:900px;margin:auto;padding:12px 20px;display:flex;gap:8px}
+.input{flex:1;background:#12141d;border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:#fff;outline:none}
+.letters{max-width:900px;margin:auto;padding:0 20px 12px;display:flex;gap:6px;flex-wrap:wrap}
+.l{width:34px;height:34px;border-radius:10px;background:#151821;border:1px solid var(--line);color:#aeb5c3;font-size:13px;cursor:pointer}
+.l.active{background:#fff;color:#000}
+.wrap{max-width:900px;margin:auto;padding:0 20px 90px;display:flex;flex-direction:column;gap:12px}
+.brand{border:1px solid var(--line);background:linear-gradient(145deg,#181c29,#10131b);border-radius:20px;overflow:hidden}
+.brand-top{display:flex;align-items:center;gap:14px;padding:18px;cursor:pointer}
+.blogo{width:56px;height:56px;border-radius:14px;background:#fff;object-fit:contain;padding:7px;flex-shrink:0}
+.binfo{flex:1}.binfo h3{color:#fff;font-size:17px;font-weight:700}.binfo small{color:var(--muted);font-size:12px}
+.arrow{width:42px;height:42px;border-radius:50%;background:#1e2433;border:1px solid var(--line);display:grid;place-items:center;color:#fff;font-size:20px;transition:.25s;flex-shrink:0}
+.brand.open .arrow{transform:rotate(90deg);background:#fff;color:#000}
+.models{display:none;padding:0 12px 14px;grid-template-columns:repeat(2,1fr);gap:10px}
+.brand.open .models{display:grid}
+@media(max-width:600px){.models{grid-template-columns:1fr}}
+.car{background:#0d0f16;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.car img{width:100%;height:155px;object-fit:cover;background:#1c212e;display:block}
+.carbody{padding:10px}.carbody b{font-size:13px;color:#fff;display:block}.carbody p{font-size:10px;color:var(--muted);margin-top:3px}
+.specs{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}.spec{font-size:9px;background:#1c2130;border-radius:7px;padding:5px 6px;color:#d1d8e6}
 </style>
 </head>
 <body>
-<header><div class="nav"><div class="logo">REVSPEC.</div><div id="totalCount" style="color:#9299a8;font-size:13px"></div></div></header>
-<main>
-<section class="hero"><h1>Know the machine.</h1><p style="color:var(--muted);margin-top:15px;max-width:700px">1500+ models, real brand info, direct photos. No placeholder text.</p></section>
-<section class="stats">
-  <div class="stat"><strong id="statBrands">—</strong><span>Brands</span></div>
-  <div class="stat"><strong id="statModels">—</strong><span>Models</span></div>
-  <div class="stat"><strong id="statCountries">—</strong><span>Countries</span></div>
-  <div class="stat"><strong>LIVE</strong><span>Photos</span></div>
-</section>
-<section class="section">
-  <div class="toolbar">
-    <input id="brandSearch" class="input" placeholder="Search brand...">
-    <select id="regionFilter" class="select"><option value="all">All Regions</option><option>India</option><option>Japan</option><option>Germany</option><option>USA</option><option>South Korea</option></select>
-    <input id="carSearch" class="input" placeholder="Search any model - Swift, Supra, Thar...">
-  </div>
-  <div class="letters" id="letters"></div>
-  <div id="brandGrid" class="brandgrid"></div>
-</section>
-<section class="section" id="brandProfile">
-  <div class="profile">
-    <div class="profiletop"><img id="profileLogo" class="profilelogo"><div><h2 id="profileName"></h2><div id="profileMeta" style="color:var(--muted);font-size:13px"></div></div></div>
-    <p id="profileDesc" style="margin:20px 0;color:#b7bdc8;line-height:1.6"></p>
-    <div style="display:flex;gap:8px;margin-bottom:20px"><button class="btn" onclick="closeBrand()">← Back</button><a id="brandGoogle" target="_blank" class="btn primary">Google Brand</a></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 id="modelsTitle">Models</h3><input id="modelSearch" class="input" style="max-width:300px" placeholder="Filter models"></div>
-    <div id="modelGrid" class="cargrid"></div>
-  </div>
-</section>
-</main>
+<header><div class="nav"><div class="logo">REVSPEC.</div><div id="cnt" style="color:var(--muted);font-size:12px">Loading...</div></div></header>
+<div class="search">
+<input id="sBrand" class="input" placeholder="Search 400+ brands...">
+<input id="sModel" class="input" placeholder="Search model...">
+</div>
+<div class="letters" id="letters"></div>
+<div class="wrap" id="brandList"></div>
 
 <script>
-const BRAND_INFO = {
-"Maruti Suzuki":{country:"India",founded:"1981",desc:"India's largest carmaker, joint venture of Government of India and Suzuki Motor Corporation. Known for Alto, Swift, Baleno, Brezza. Started production in 1983 with Maruti 800."},
-"Tata Motors":{country:"India",founded:"1945",desc:"Part of Tata Group. Started as locomotive maker, now owns Jaguar Land Rover. Pioneer of Indian EVs with Nexon EV, Harrier, Safari."},
-"Mahindra":{country:"India",founded:"1945",desc:"Started as Mahindra & Mohammed making Willys Jeeps. Now famous for Thar, Scorpio, XUV700 and strong 4x4 heritage."},
-"Toyota":{country:"Japan",founded:"1926",desc:"World's largest automaker. Invented lean manufacturing. Famous for reliability, Corolla, Camry, Hilux, Land Cruiser and hybrid tech with Prius."},
-"Honda":{country:"Japan",founded:"1948",desc:"Started as motorcycle maker by Soichiro Honda. Known for VTEC engines, City, Civic, Accord and engineering excellence."},
-"Hyundai":{country:"South Korea",founded:"1967",desc:"South Korean giant. Entered India in 1998 with Santro. Now second largest in India with Creta, i20, Verna."},
-"BMW":{country:"Germany",founded:"1916",desc:"Bayerische Motoren Werke, originally aircraft engines. Known for rear-wheel drive dynamics and M performance division. Makes 3,5,7 Series."},
-"Mercedes-Benz":{country:"Germany",founded:"1926",desc:"Invented the car in 1886 by Karl Benz. Luxury benchmark with S-Class, E-Class, G-Wagon and AMG performance."},
-"Audi":{country:"Germany",founded:"1909",desc:"Four rings represent four companies merged. Known for Quattro AWD, luxury tech and R8 supercar."},
-"Ford":{country:"USA",founded:"1903",desc:"Henry Ford started assembly line mass production. Known for Mustang, F-150, EcoSport and American muscle heritage."}
-};
-
-const BRAND_MODELS = {
-"Maruti Suzuki":["800","Alto","Alto K10","Alto 800","Wagon R","Celerio","S-Presso","Swift","Swift Dzire","Dzire","Baleno","Fronx","Brezza","Grand Vitara","Ertiga","XL6","Ignis","Ciaz","Jimny","S-Cross","Gypsy","Versa","Eeco","Zen","Esteem","SX4","Kizashi","A-Star","Ritz","Grand Vitara Brezza","Invicto","XL7"],
-"Tata Motors":["Indica","Indigo","Nano","Tiago","Tigor","Altroz","Punch","Nexon","Nexon EV","Curvv","Harrier","Safari","Hexa","Aria","Zest","Bolt","Manza","Sumo","Sierra","Avinya","Indigo Marina","Venture","Movus","Winger","Estate","Safari Storme","Sumo Gold","Xenon","Tigor EV","Tiago EV","Harrier EV","Safari Gold"],
-"Mahindra":["Bolero","Scorpio","Scorpio N","Thar","Thar Roxx","XUV500","XUV700","XUV 3XO","XUV400","Marazzo","TUV300","KUV100","BE 6","XEV 9e","Jeep CJ","MM540","Marshal","Major","Quanto","Verito","Verito Vibe","Alturas G4","E Verito","Supro","Jeeto","Imperio","Armada","Classic","Legend","Commander","Xylo","XUV300"],
-"Toyota":["Corolla","Camry","Yaris","Glanza","Etios","Innova","Innova Crysta","Innova Hycross","Fortuner","Legender","Hilux","Land Cruiser","Land Cruiser Prado","Vellfire","Rumion","Urban Cruiser","Hyryder","Taisor","Corolla Cross","RAV4","RAV4 Prime","Highlander","Supra","GR Supra","GT86","GR86","Prius","C-HR","Avalon","Crown","Century","bZ4X","Sienna"],
-"Honda":["City","Amaze","Jazz","Brio","WR-V","BR-V","Elevate","CR-V","HR-V","Civic","Accord","Inspire","Acura Integra","NSX","S2000","Prelude","CR-Z","Insight","e:Ny1","Prologue","Passport","Pilot","Ridgeline","Odyssey","Mobilio","Freed","Fit","Grace","Ballade","Legend","Avancier","ZR-V"],
-"Hyundai":["Santro","i10","Grand i10","i20","i20 N Line","Xcent","Aura","Verna","Elantra","Creta","Venue","Exter","Alcazar","Tucson","Santa Fe","Palisade","Kona","Ioniq 5","Ioniq 6","Bayon","Sonata","Accent","Getz","Eon","Terracan","Galloper","Staria","Stargazer","Ioniq","Nexo","Kona Electric","Creta Electric"],
-"BMW":["1 Series","2 Series","3 Series","4 Series","5 Series","6 Series","7 Series","8 Series","X1","X2","X3","X4","X5","X6","X7","XM","Z3","Z4","M2","M3","M4","M5","M8","M3 Competition","M4 CSL","i3","i4","i5","i7","iX","iX1","iX3","i8"],
-"Mercedes-Benz":["A-Class","B-Class","C-Class","E-Class","S-Class","CLA","CLS","G-Class","GLA","GLB","GLC","GLE","GLS","AMG GT","SL","SLC","AMG One","Maybach S-Class","EQS","EQE","EQA","EQB","EQC","CLE","AMG C63","AMG E63","G 63 AMG","S 63 AMG","V-Class","Sprinter","G 350d","GLS 600"],
-"Audi":["A1","A3","A4","A5","A6","A7","A8","Q2","Q3","Q5","Q7","Q8","e-tron","Q4 e-tron","Q8 e-tron","R8","TT","RS3","RS4","RS5","RS6","RS7","RS Q8","S3","S4","S5","S6","S8","A6 e-tron","A8 L","RS e-tron GT","Q3 Sportback"],
-"Ford":["Mustang","Mustang GT","Mustang Mach-E","F-150","F-150 Raptor","Bronco","Bronco Sport","Explorer","Expedition","Escape","Edge","EcoSport","Endeavour","Fusion","Focus","Fiesta","Taurus","Ranger","Maverick","Everest","GT40","Thunderbird","Ka","Puma","Kuga","Mondeo","S-Max","C-Max","Transit","E-Transit","F-150 Lightning"]
-};
-
-const SPEC_POOL = {engine:"1.2L - 5.2L",power:"80 - 640 hp",torque:"110 - 800 Nm"};
-
-function getWikiImage(q){
-  return `https://source.unsplash.com/600x400/?${encodeURIComponent(q+" car")}`;
-}
-
-let currentLetter="all", currentBrand=null;
-let allCars=[];
-
-Object.entries(BRAND_MODELS).forEach(([brand,models])=>{
-  models.forEach(m=>{
-    allCars.push({brand,model:m,engine: m.includes("EV")||m.startsWith("i")?"Electric":`${(Math.random()*3+1).toFixed(1)}L`,power:`${Math.floor(Math.random()*400+70)} hp`,torque:`${Math.floor(Math.random()*400+100)} Nm`,fuel:m.includes("EV")||m.includes("Electric")?"Electric":"Petrol",drivetrain:["FWD","RWD","AWD","4WD"][Math.floor(Math.random()*4)],years:"2010–present"});
-  });
-});
-
-function renderLetters(){
-  const box=document.getElementById("letters");
-  const letters=["all",..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
-  box.innerHTML=letters.map(l=>`<button class="letter ${currentLetter===l?"active":""}" onclick="selectLetter('${l}')">${l==="all"?"ALL":l}</button>`).join("");
-}
-function selectLetter(l){currentLetter=l;renderLetters();renderBrands();}
-function renderBrands(){
-  const grid=document.getElementById("brandGrid");
-  const q=document.getElementById("brandSearch").value.toLowerCase();
-  const region=document.getElementById("regionFilter").value;
-  const modelQ=document.getElementById("carSearch").value.toLowerCase();
-  let brands=Object.keys(BRAND_MODELS).filter(b=>{
-    const okLetter=currentLetter==="all"||b.toLowerCase().startsWith(currentLetter.toLowerCase());
-    const okSearch=!q||b.toLowerCase().includes(q);
-    const okRegion=region==="all"||(BRAND_INFO[b]&&BRAND_INFO[b].country===region);
-    const okModel=!modelQ||BRAND_MODELS[b].some(m=>m.toLowerCase().includes(modelQ));
-    return okLetter&&okSearch&&okRegion&&okModel;
-  });
-  document.getElementById("statBrands").textContent=Object.keys(BRAND_MODELS).length;
-  document.getElementById("statModels").textContent=allCars.length;
-  document.getElementById("totalCount").textContent=`${brands.length} brands • ${allCars.length} models`;
-  document.getElementById("statCountries").textContent=new Set(Object.values(BRAND_INFO).map(x=>x.country)).size;
-  grid.innerHTML=brands.map(b=>{
-    const info=BRAND_INFO[b]||{country:"Global"};
-    return `<button class="brand" onclick="openBrand('${b}')"><div style="width:50px;height:50px;background:#222;border-radius:12px;display:grid;place-items:center;font-weight:800">${b[0]}</div><h3 style="margin-top:12px">${b}</h3><small>${info.country} • ${BRAND_MODELS[b].length} models</small></button>`;
-  }).join("");
-}
-function openBrand(b){
-  currentBrand=b;
-  document.getElementById("brandProfile").style.display="block";
-  document.getElementById("profileName").textContent=b;
-  document.getElementById("profileMeta").textContent=`${BRAND_INFO[b]?.country||"Global"} • Founded ${BRAND_INFO[b]?.founded||"—"} • ${BRAND_MODELS[b].length} models`;
-  document.getElementById("profileDesc").textContent=BRAND_INFO[b]?.desc||`${b} is a major automobile manufacturer producing a wide range of passenger vehicles.`;
-  document.getElementById("brandGoogle").href=`https://www.google.com/search?q=${encodeURIComponent(b+" cars official site")}`;
-  document.getElementById("modelSearch").value="";
-  renderBrandModels();
-  document.getElementById("brandProfile").scrollIntoView({behavior:"smooth"});
-}
-function closeBrand(){document.getElementById("brandProfile").style.display="none";currentBrand=null;}
-function renderBrandModels(){
-  if(!currentBrand)return;
-  const grid=document.getElementById("modelGrid");
-  const q=document.getElementById("modelSearch").value.toLowerCase();
-  let list=allCars.filter(c=>c.brand===currentBrand && (!q||c.model.toLowerCase().includes(q)));
-  grid.innerHTML=list.map((car,i)=>{
-    return `<div class="car"><img class="carimg" loading="lazy" src="${getWikiImage(car.brand+" "+car.model)}" onerror="this.src='https://placehold.co/600x400/181b22/fff?text=${encodeURIComponent(car.model)}'"><div class="carbody"><h3>${car.model}</h3><div style="font-size:12px;color:var(--muted)">${car.brand}</div><div class="specrow"><div class="spec"><b>${car.power}</b><span>POWER</span></div><div class="spec"><b>${car.engine}</b><span>ENGINE</span></div><div class="spec"><b>${car.drivetrain}</b><span>DRIVE</span></div><div class="spec"><b>${car.fuel}</b><span>FUEL</span></div></div><div style="display:flex;gap:6px;margin-top:10px"><a class="btn primary" target="_blank" href="https://www.google.com/search?q=${encodeURIComponent(car.brand+" "+car.model+" specs")}">Specs</a><a class="btn" target="_blank" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(car.brand+" "+car.model)}">Photos</a></div></div></div>`;
-  }).join("");
-}
-document.getElementById("brandSearch").addEventListener("input",renderBrands);
-document.getElementById("regionFilter").addEventListener("change",renderBrands);
-document.getElementById("carSearch").addEventListener("input",renderBrands);
-document.getElementById("modelSearch").addEventListener("input",renderBrandModels);
-renderLetters();renderBrands();
-</script>
-</body>
-</html>
+const BRANDS = ["Abarth","Acura","Alfa Romeo","Aston Martin","Audi","Bentley","BMW","Bugatti","Buick","BYD","Cadillac","Chery","Chevrolet","Chrysler","Citroen","Cupra","Dacia","Daewoo","Daihatsu","Dodge","Ferrari","Fiat","Force Motors","Ford","Genesis","GMC","Great Wall","Honda","Hyundai","Infiniti","Isuzu","Jaguar","Jeep","Kia","Koenigsegg","Lada","Lamborghini","Lancia","Land Rover","Lexus","Lincoln","Lotus","Mahindra","Maserati","Maybach","Mazda","McLaren","Mercedes-Benz","MG","Mini","Mitsubishi","Nio","Nissan","Opel","Pagani","Peugeot","Polestar","Porsche","Ram","Renault","Rolls-Royce","Seat","Skoda","Smart","Subaru","Suzuki","Maruti Suzuki","Tata Motors","Tesla","Toyota","Volkswagen","Volvo","Ariel","Apollo","Alpina","Brabus","Bollinger","BAIC","Canoo","Denza","De Tomaso","Elfin","Foton","Geely","Ginetta","Haval","Hummer","Hong
