@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REVV//ZONE — JDM Car Database</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #070707;
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+/* NAVBAR */
+
+nav {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    background: #090909;
+    border-bottom: 1px solid #252525;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.logo span {
+    color: #ff2020;
+}
+
+nav a {
+    color: #aaa;
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 17px;
+    transition: .2s;
+}
+
+nav a:hover {
+    color: #ff2020;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 430px;
+    padding: 100px 8%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, #070707 20%, transparent),
+        linear-gradient(180deg, #101010, #070707);
+}
+
+.hero::after {
+    content: "JDM";
+    position: absolute;
+    right: -30px;
+    bottom: -70px;
+    font-family: 'Orbitron';
+    font-size: 220px;
+    font-weight: 800;
+    color: rgba(255,255,255,.025);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.tag {
+    color: #ff2020;
+    font-family: 'Orbitron';
+    font-size: 13px;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-family: 'Orbitron';
+    font-size: clamp(42px, 7vw, 82px);
+    line-height: .95;
+    max-width: 850px;
+}
+
+.hero h1 span {
+    color: #ff2020;
+}
+
+.hero p {
+    color: #999;
+    font-size: 20px;
+    margin-top: 20px;
+    max-width: 600px;
+}
+
+/* SECTION */
+
+.container {
+    width: 84%;
+    max-width: 1400px;
+    margin: auto;
+}
+
+.section-title {
+    font-family: 'Orbitron';
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.section-title span {
+    color: #ff2020;
+}
+
+/* FILTERS */
+
+.controls {
+    margin: 45px 0 30px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.search {
+    flex: 1;
+    min-width: 220px;
+    background: #111;
+    border: 1px solid #292929;
+    color: white;
+    padding: 15px 18px;
+    font-family: inherit;
+    font-size: 17px;
+    outline: none;
+}
+
+.search:focus {
+    border-color: #ff2020;
+}
+
+.filter {
+    background: #111;
+    border: 1px solid #292929;
+    color: #ddd;
+    padding: 14px 18px;
+    font-family: inherit;
+    font-size: 16px;
+    outline: none;
+}
+
+.filter:focus {
+    border-color: #ff2020;
+}
+
+/* CAR GRID */
+
+.car-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 22px;
+    padding-bottom: 60px;
+}
+
+.car-card {
+    background: #101010;
+    border: 1px solid #242424;
+    overflow: hidden;
+    transition: .25s;
+}
+
+.car-card:hover {
+    transform: translateY(-6px);
+    border-color: #ff2020;
+    box-shadow: 0 10px 35px rgba(255,0,0,.12);
+}
+
+.car-image {
+    height: 190px;
+    background: linear-gradient(135deg,#1a1a1a,#080808);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.car-image::before {
+    content: "CAR";
+    font-family: 'Orbitron';
+    color: #333;
+    font-size: 35px;
+}
+
+.badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #ff2020;
+    color: white;
+    padding: 5px 9px;
+    font-family: 'Orbitron';
+    font-size: 10px;
+}
+
+.car-info {
+    padding: 20px;
+}
+
+.car-brand {
+    color: #ff2020;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.car-name {
+    font-family: 'Orbitron';
+    font-size: 21px;
+    margin: 6px 0 15px;
+}
+
+.price {
+    font-size: 18px;
+    color: #ddd;
+    margin-bottom: 15px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid #242424;
+    border-bottom: 1px solid #242424;
+}
+
+.stat {
+    padding: 11px 5px;
+    border-right: 1px solid #242424;
+}
+
+.stat:nth-child(2n) {
+    border-right: none;
+}
+
+.stat small {
+    color: #777;
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.stat strong {
+    font-size: 16px;
+}
+
+.compare-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 11px;
+    background: transparent;
+    border: 1px solid #444;
+    color: white;
+    font-family: 'Orbitron';
+    cursor: pointer;
+    transition: .2s;
+}
+
+.compare-btn:hover {
+    background: #ff2020;
+    border-color: #ff2020;
+}
+
+/* COMPARISON */
+
+.compare-section {
+    background: #0d0d0d;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+    padding: 55px 0;
+    margin-top: 20px;
+}
+
+.compare-box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.compare-card {
+    background: #111;
+    border: 1px solid #292929;
+    padding: 25px;
+}
+
+.compare-card h3 {
+    font-family: 'Orbitron';
+    color: #ff2020;
+    margin-bottom: 20px;
+}
+
+.compare-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #242424;
+}
+
+.compare-row span:first-child {
+    color: #777;
+}
+
+.clear-btn {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: #ff2020;
+    color: white;
+    border: none;
+    font-family: 'Orbitron';
+    cursor: pointer;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 35px;
+    color: #555;
+    background: #050505;
+}
+
+footer strong {
+    color: #ff2020;
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    nav {
+        padding: 0 5%;
+    }
+
+    nav a {
+        display: none;
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    .hero {
+        padding: 75px 7%;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .compare-box {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+    <div class="logo">REVV<span>//</span>ZONE</div>
+
+    <div>
+        <a href="#cars">Cars</a>
+        <a href="#compare">Compare</a>
+        <a href="#about">About</a>
+    </div>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="tag">AUTOMOTIVE DATABASE // 2026</div>
+
+        <h1>
+            FIND YOUR<br>
+            <span>PERFECT RIDE.</span>
+        </h1>
+
+        <p>
+            Explore performance cars, compare their specs
+            and find the machine that fits your style.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- CARS -->
+
+<section id="cars" class="container">
+
+    <div class="controls">
+
+        <input
+            type="text"
+            id="search"
+            class="search"
+            placeholder="Search cars...">
+
+        <select id="brandFilter" class="filter">
+            <option value="all">All Brands</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Nissan">Nissan</option>
+            <option value="Honda">Honda</option>
+            <option value="BMW">BMW</option>
+            <option value="Porsche">Porsche</option>
+        </select>
+
+        <select id="typeFilter" class="filter">
+            <option value="all">All Types</option>
+            <option value="JDM">JDM</option>
+            <option value="Sports">Sports</option>
+            <option value="Performance">Performance</option>
+        </select>
+
+    </div>
+
+    <h2 class="section-title">
+        NEW <span>CARS</span>
+    </h2>
+
+    <div id="carGrid" class="car-grid"></div>
+
+</section>
+
+
+<!-- COMPARISON -->
+
+<section id="compare" class="compare-section">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            CAR <span>COMPARISON</span>
+        </h2>
+
+        <div id="compareBox" class="compare-box">
+
+            <div class="compare-card">
+                <h3>CAR 01</h3>
+                <p style="color:#666;">
+                    Select a car above to compare.
+                </p>
+            </div>
+
+            <div class="compare-card">
+                <h3>CAR 02</h3>
+                <p style="color:#666;">
+                    Select another car to compare.
+                </p>
+            </div>
+
+        </div>
+
+        <button class="clear-btn" onclick="clearCompare()">
+            CLEAR COMPARISON
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer id="about">
+    <p>
+        <strong>REVV//ZONE</strong> — Built for car enthusiasts.
+    </p>
+    <p style="margin-top:8px;">
+        JDM • PERFORMANCE • STREET
+    </p>
+</footer>
+
+
+<script>
+
+/* CAR DATABASE */
+
+const cars = [
+
+    {
+        brand: "Toyota",
+        name: "GR Supra",
+        year: 2026,
+        type: "JDM",
+        price: "₹85 Lakh*",
+        engine: "3.0L Turbo",
+        power: "382 HP",
+        torque: "500 Nm",
+        zero: "4.1 sec",
+        speed: "250 km/h",
+        drive: "RWD"
+    },
+
+    {
+        brand: "Nissan",
+        name: "Nissan Z",
+        year: 2026,
+        type: "JDM",
+        price: "₹65 Lakh*",
+        engine: "3.0L Twin Turbo",
+        power: "400 HP",
+        torque: "475 Nm",
+        zero: "4.5 sec",
+        speed: "250 km/h",
+        drive: "RWD"
+    },
+
+    {
+        brand: "Honda",
+        name: "Civic Type R",
+        year: 2026,
+        type: "JDM",
+        price: "₹45 Lakh*",
+        engine: "2.0L Turbo",
+        power: "315 HP",
+        torque: "420 Nm",
+        zero: "5.4 sec",
+        speed: "275 km/h",
+        drive: "FWD"
+    },
+
+    {
+        brand: "BMW",
+        name: "M2",
+        year: 2026,
+        type: "Performance",
+        price: "₹1.03 Crore*",
+        engine: "3.0L Twin Turbo",
+        power: "473 HP",
+        torque: "600 Nm",
+        zero: "4.1 sec",
+        speed: "250 km/h",
+        drive: "RWD"
+    },
+
+    {
+        brand: "Porsche",
+        name: "911 Carrera",
+        year: 2026,
+        type: "Sports",
+        price: "₹1.99 Crore*",
+        engine: "3.0L Twin Turbo",
+        power: "388 HP",
+        torque: "450 Nm",
+        zero: "4.1 sec",
+        speed: "294 km/h",
+        drive: "RWD"
+    },
+
+    {
+        brand: "Toyota",
+        name: "GR Yaris",
+        year: 2026,
+        type: "JDM",
+        price: "₹35 Lakh*",
+        engine: "1.6L Turbo",
+        power: "276 HP",
+        torque: "390 Nm",
+        zero: "5.2 sec",
+        speed: "230 km/h",
+        drive: "AWD"
+    }
+
+];
+
+
+/* SHOW CARS */
+
+const grid = document.getElementById("carGrid");
+
+function displayCars(list) {
+
+    grid.innerHTML = "";
+
+    if (list.length === 0) {
+
+        grid.innerHTML = `
+            <p style="color:#777; font-size:20px;">
+                No cars found.
+            </p>
+        `;
+
+        return;
+    }
+
+    list.forEach((car, index) => {
+
+        const card = document.createElement("div");
+
+        card.className = "car-card";
+
+        card.innerHTML = `
+
+            <div class="car-image">
+
+                <div class="badge">
+                    ${car.year}
+                </div>
+
+            </div>
+
+            <div class="car-info">
+
+                <div class="car-brand">
+                    ${car.brand}
+                </div>
+
+                <div class="car-name">
+                    ${car.name}
+                </div>
+
+                <div class="price">
+                    ${car.price}
+                </div>
+
+                <div class="stats">
+
+                    <div class="stat">
+                        <small>Engine</small>
+                        <strong>${car.engine}</strong>
+                    </div>
+
+                    <div class="stat">
+                        <small>Power</small>
+                        <strong>${car.power}</strong>
+                    </div>
+
+                    <div class="stat">
+                        <small>0-100</small>
+                        <strong>${car.zero}</strong>
+                    </div>
+
+                    <div class="stat">
+                        <small>Top Speed</small>
+                        <strong>${car.speed}</strong>
+                    </div>
+
+                    <div class="stat">
+                        <small>Torque</small>
+                        <strong>${car.torque}</strong>
+                    </div>
+
+                    <div class="stat">
+                        <small>Drive</small>
+                        <strong>${car.drive}</strong>
+                    </div>
+
+                </div>
+
+                <button
+                    class="compare-btn"
+                    onclick="addCompare(${index})">
+
+                    + ADD TO COMPARE
+
+                </button>
+
+            </div>
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* SEARCH + FILTER */
+
+function filterCars() {
+
+    const search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+    const brand =
+        document.getElementById("brandFilter")
+        .value;
+
+    const type =
+        document.getElementById("typeFilter")
+        .value;
+
+    const filtered = cars.filter(car => {
+
+        const matchesSearch =
+            car.name.toLowerCase().includes(search) ||
+            car.brand.toLowerCase().includes(search);
+
+        const matchesBrand =
+            brand === "all" ||
+            car.brand === brand;
+
+        const matchesType =
+            type === "all" ||
+            car.type === type;
+
+        return matchesSearch &&
+               matchesBrand &&
+               matchesType;
+
+    });
+
+    displayCars(filtered);
+}
+
+
+document
+    .getElementById("search")
+    .addEventListener("input", filterCars);
+
+document
+    .getElementById("brandFilter")
+    .addEventListener("change", filterCars);
+
+document
+    .getElementById("typeFilter")
+    .addEventListener("change", filterCars);
+
+
+/* COMPARISON SYSTEM */
+
+let compareCars = [];
+
+
+function addCompare(index) {
+
+    const car = cars[index];
+
+    if (compareCars.some(c => c.name === car.name)) {
+        return;
+    }
+
+    if (compareCars.length >= 2) {
+
+        alert("You can compare only 2 cars.");
+
+        return;
+    }
+
+    compareCars.push(car);
+
+    updateCompare();
+
+}
+
+
+function updateCompare() {
+
+    const box =
+        document.getElementById("compareBox");
+
+    box.innerHTML = "";
+
+    for (let i = 0; i < 2; i++) {
+
+        if (!compareCars[i]) {
+
+            box.innerHTML += `
+
+                <div class="compare-card">
+
+                    <h3>
+                        CAR ${i + 1}
+                    </h3>
+
+                    <p style="color:#666;">
+                        Select a car above to compare.
+                    </p>
+
+                </div>
+
+            `;
+
+            continue;
+        }
+
+        const car = compareCars[i];
+
+        box.innerHTML += `
+
+            <div class="compare-card">
+
+                <h3>
+                    ${car.brand} ${car.name}
+                </h3>
+
+                <div class="compare-row">
+                    <span>Engine</span>
+                    <strong>${car.engine}</strong>
+                </div>
+
+                <div class="compare-row">
+                    <span>Power</span>
+                    <strong>${car.power}</strong>
+                </div>
+
+                <div class="compare-row">
+                    <span>Torque</span>
+                    <strong>${car.torque}</strong>
+                </div>
+
+                <div class="compare-row">
+                    <span>0-100 km/h</span>
+                    <strong>${car.zero}</strong>
+                </div>
+
+                <div class="compare-row">
+                    <span>Top Speed</span>
+                    <strong>${car.speed}</strong>
+                </div>
+
+                <div class="compare-row">
+                    <span>Drivetrain</span>
+                    <strong>${car.drive}</strong>
+                </div>
+
+                <div class="compare-row">
+                    <span>Price</span>
+                    <strong>${car.price}</strong>
+                </div>
+
+            </div>
+        `;
+
+    }
+
+}
+
+
+function clearCompare() {
+
+    compareCars = [];
+
+    updateCompare();
+
+}
+
+
+/* INITIAL LOAD */
+
+displayCars(cars);
+
+</script>
+
+</body>
+</html>
