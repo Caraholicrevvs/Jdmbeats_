@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Explorer</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#080b14;
+ color:#f1f5ff;
+}
+header{
+ padding:20px;
+ text-align:center;
+ color:#42d9ff;
+ font-size:25px;
+ font-weight:bold;
+}
+.container{max-width:1000px;margin:auto;padding:20px}
+.hero,.card,.quiz{
+ background:#141d30;
+ border:1px solid #293956;
+ border-radius:18px;
+ padding:22px;
+ margin:18px 0;
+}
+h1{font-size:40px;color:#8c7aff}
+h2{color:#42d9ff}
+p{line-height:1.7;color:#c4cee0}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+ gap:15px;
+}
+button{
+ background:#7057ff;
+ color:white;
+ border:0;
+ border-radius:10px;
+ padding:13px 18px;
+ margin:5px;
+ cursor:pointer;
+ font-size:15px;
+ font-weight:bold;
+}
+button:hover{background:#927fff}
+.option{
+ display:block;
+ width:100%;
+ text-align:left;
+ background:#24324b;
+ margin:10px 0;
+}
+.correct{background:#16834e!important}
+.wrong{background:#bd354b!important}
+.selected{outline:2px solid #42d9ff}
+#quizArea{display:none}
+#feedback{padding:12px;margin-top:10px}
+.progress{
+ height:10px;
+ background:#293956;
+ border-radius:20px;
+ overflow:hidden;
+}
+#progressBar{
+ height:100%;
+ background:#42d9ff;
+ width:0%;
+}
+footer{text-align:center;color:#8796b0;padding:25px}
+</style>
+</head>
+
+<body>
+
+<header>🤖 AI EXPLORER</header>
+
+<div class="container">
+
+<div class="hero">
+<h1>Explore the AI Universe 🌌</h1>
+<p>
+Welcome to AI Explorer! Discover how Artificial Intelligence
+works through three fascinating domains. Learn concepts,
+explore real-life examples, and challenge yourself with a quiz.
+</p>
+<button onclick="document.getElementById('domains').scrollIntoView()">Explore Domains ↓</button>
+</div>
+
+<section id="domains">
+
+<h2>🌟 The Three AI Domains</h2>
+
+<div class="grid">
+
+<div class="card">
+<h2>💬 Natural Language Processing</h2>
+
+<p><b>What is NLP?</b></p>
+
+<p>
+Natural Language Processing is a branch of AI that allows
+computers to understand, interpret, process and generate
+human language, including text and speech.
+</p>
+
+<h3>How does NLP work?</h3>
+
+<p>
+1. <b>Tokenisation:</b> Breaks sentences into smaller units
+such as words or tokens.
+</p>
+
+<p>
+2. <b>Syntactic Analysis:</b> Analyses grammatical structure
+and relationships between words.
+</p>
+
+<p>
+3. <b>Semantic Analysis:</b> Understands the meaning of words
+and sentences.
+</p>
+
+<p>
+4. <b>Pragmatic Analysis:</b> Understands the intended meaning
+using context.
+</p>
+
+<p>
+5. <b>Discourse Integration:</b> Understands relationships
+between sentences in a conversation.
+</p>
+
+<h3>Applications</h3>
+<p>
+• Chatbots<br>
+• Google Translate<br>
+• Voice assistants<br>
+• Sentiment analysis<br>
+• Spam detection<br>
+• Text summarisation
+</p>
+
+<h3>Challenges</h3>
+<p>
+Sarcasm, slang, ambiguity, accents, spelling mistakes
+and understanding context.
+</p>
+
+<p><b>Fun example:</b> "This game is sick!" may mean the
+game is awesome, not that it is unhealthy!
+</p>
+</div>
+
+
+<div class="card">
+<h2>👁️ Computer Vision</h2>
+
+<p><b>What is Computer Vision?</b></p>
+
+<p>
+Computer Vision is an AI domain that enables computers
+to analyse, understand and extract information from images
+and videos.
+</p>
+
+<h3>How does it work?</h3>
+
+<p>
+1. An image or video is captured.<br>
+2. The system analyses visual features.<br>
+3. AI identifies patterns and objects.<br>
+4. The system produces an interpretation.
+</p>
+
+<h3>Applications</h3>
+<p>
+• Facial recognition<br>
+• Self-driving cars<br>
+• Medical image analysis<br>
+• Object detection<br>
+• CCTV analysis<br>
+• Plant disease detection
+</p>
+
+<h3>Challenges</h3>
+<p>
+Lighting, camera angles, blurry images, objects being
+hidden, and similar-looking objects.
+</p>
+
+<p><b>Fun example:</b> Your phone can recognise a cat
+in a photograph without understanding the word "cat".
+</p>
+</div>
+
+
+<div class="card">
+<h2>📊 Data Science</h2>
+
+<p><b>What is Data Science?</b></p>
+
+<p>
+Data Science involves collecting, organising, analysing
+and interpreting data to discover patterns, draw conclusions
+and support decision-making.
+</p>
+
+<h3>Typical process</h3>
+
+<p>
+1. Collect data.<br>
+2. Clean and organise data.<br>
+3. Analyse patterns.<br>
+4. Visualise information.<br>
+5. Draw conclusions or make predictions.
+</p>
+
+<h3>Applications</h3>
+<p>
+• Weather forecasting<br>
+• Business analysis<br>
+• Sports statistics<br>
+• Healthcare research<br>
+• Recommendation systems<br>
+• Traffic analysis
+</p>
+
+<h3>Challenges</h3>
+<p>
+Missing data, inaccurate information, biased datasets,
+privacy concerns and incorrect interpretations.
+</p>
+
+<p><b>Fun example:</b> Analysing your favourite music
+genres and creating a graph showing which genre is most popular.
+</p>
+</div>
+
+</div>
+</section>
+
+
+<section class="card">
+
+<h2>🧠 Can you identify the domains?</h2>
+
+<p><b>Human language, text or speech?</b> → NLP</p>
+
+<p><b>Images, videos or visual information?</b> → Computer Vision</p>
+
+<p><b>Numbers, tables, graphs and patterns?</b> → Data Science</p>
+
+<p>
+Real-world AI systems can use multiple domains together!
+For example, a self-driving car can use Computer Vision
+to see roads and Data Science to analyse sensor information.
+</p>
+
+</section>
+
+
+<section class="card">
+
+<h2>🎮 Choose your training domain</h2>
+
+<p>Select the domain you want to practise.</p>
+
+<button onclick="choose('NLP',this)">💬 NLP</button>
+<button onclick="choose('CV',this)">👁️ Computer Vision</button>
+<button onclick="choose('DS',this)">📊 Data Science</button>
+
+<p id="selection">Selected: NLP</p>
+
+<button onclick="startQuiz()">I understood, let's have a test! 🚀</button>
+
+</section>
+
+
+<section id="quizArea" class="quiz">
+
+<h2>🏆 Quiz Training</h2>
+
+<p id="round"></p>
+<p id="score"></p>
+
+<div class="progress">
+<div id="progressBar"></div>
+</div>
+
+<h3 id="question"></h3>
+
+<div id="options"></div>
+
+<p id="feedback"></p>
+
+<button id="next" onclick="nextQuestion()" disabled>
+Next Question →
+</button>
+
+</section>
+
+</div>
+
+<footer>
+AI Explorer | Learn • Practise • Improve
+</footer>
+
+
+<script>
+
+let selected="NLP";
+let questions=[];
+let current=0;
+let marks=0;
+let roundMarks=0;
+let answered=false;
+
+function choose(domain,button){
+ selected=domain;
+ document.getElementById("selection").innerText=
+ "Selected: "+domain;
+}
+
+const questionBank={
+
+NLP:[
+
+["Which AI domain understands human language?",
+["NLP","Computer Vision","Robotics","Data Science"],0,
+"NLP processes human language."],
+
+["Breaking a sentence into individual words is called?",
+["Tokenisation","Prediction","Detection","Visualisation"],0,
+"Tokenisation divides text into smaller units."],
+
+["Which NLP task identifies positive or negative opinions?",
+["Sentiment Analysis","Object Detection","Regression","Image Segmentation"],0,
+"Sentiment analysis identifies emotional tone."],
+
+["Google Translate primarily uses which AI domain?",
+["NLP","Computer Vision","Robotics","Hardware"],0,
+"Translation processes human language."],
+
+["A chatbot understands a user's question. This is?",
+["NLP","Computer Vision","Data Science only","Mechanical engineering"],0,
+"Chatbots process language."],
+
+["Identifying grammar and sentence structure is?",
+["Syntactic Analysis","Sentiment Analysis","Data Cleaning","Object Tracking"],0,
+"Syntactic analysis examines sentence structure."],
+
+["Understanding the meaning of a sentence is?",
+["Semantic Analysis","Image Classification","Data Sorting","Robotics"],0,
+"Semantic analysis focuses on meaning."],
+
+["Understanding the intended meaning using context is?",
+["Pragmatic Analysis","Tokenisation","Image Processing","Regression"],0,
+"Pragmatics considers context and intention."],
+
+["Which is a speech recognition example?",
+["Voice typing","Face unlock","Plant detection","Rainfall graph"],0,
+"Speech recognition converts spoken words into text."],
+
+["Identifying spam emails is an application of?",
+["NLP","Computer Vision","Robotics","Image Editing"],0,
+"Spam detection can analyse email text."],
+
+["Which is a natural language?",
+["Hindi","Python only","Binary","Machine code"],0,
+"Hindi is a human language."],
+
+["A word having multiple meanings is a challenge called?",
+["Ambiguity","Resolution","Regression","Segmentation"],0,
+"Ambiguity means more than one possible meaning."],
+
+["Summarising a long article is?",
+["Text Summarisation","Object Detection","Clustering","Tracking"],0,
+"Text summarisation creates a shorter version."],
+
+["A chatbot forgets previous messages. It struggles with?",
+["Context","Pixels","Graphs","Camera focus"],0,
+"Conversation context helps interpret messages."],
+
+["Converting written text into spoken output is?",
+["Text-to-Speech","Speech-to-Text","Image Detection","Data Cleaning"],0,
+"Text-to-speech generates spoken words."],
+
+["Detecting sarcasm is difficult because?",
+["Literal words may differ from intended meaning","Images are large","Tables are empty","Pixels are missing"],0,
+"Sarcasm requires contextual interpretation."],
+
+["Which task is NOT NLP?",
+["Identifying a dog in a photograph","Translation","Chatbot","Speech recognition"],0,
+"Recognising objects in images is Computer Vision."],
+
+["NLP can process?",
+["Text and speech","Only photographs","Only numbers","Only videos"],0,
+"NLP works with human language."],
+
+["Which helps NLP understand references across sentences?",
+["Discourse Integration","Image Cropping","Data Sorting","Object Detection"],0,
+"Discourse integration connects information across sentences."],
+
+["A system translates English to French. It is?",
+["Machine Translation","Object Tracking","Data Cleaning","Image Segmentation"],0,
+"Machine translation translates languages."]
+],
+
+CV:[
+
+["Identifying a dog in an image is?",
+["Computer Vision","NLP","Data Science only","Translation"],0,
+"CV interprets visual information."],
+
+["Detecting and locating cars in an image is?",
+["Object Detection","Sentiment Analysis","Tokenisation","Translation"],0,
+"Object detection finds and locates objects."],
+
+["Classifying a photo as cat or dog is?",
+["Image Classification","Speech Recognition","Data Cleaning","Text Generation"],0,
+"Classification assigns a category."],
+
+["A self-driving car recognises road signs using?",
+["Computer Vision","NLP only","Text Summarisation","Spreadsheet"],0,
+"Road signs are visual inputs."],
+
+["Which is visual data?",
+["Photograph","Paragraph","Spoken sentence","Spreadsheet formula"],0,
+"Photographs contain visual information."],
+
+["A camera detects pedestrians. It uses?",
+["Computer Vision","NLP","Sentiment Analysis","Translation"],0,
+"Pedestrian detection is visual analysis."],
+
+["Identifying a face in a photograph is?",
+["Computer Vision","Data Science only","NLP","Speech synthesis"],0,
+"Face recognition analyses visual features."],
+
+["A system examines X-rays. Which domain?",
+["Computer Vision","NLP","Translation","Chatbot"],0,
+"X-rays are images."],
+
+["Tracking a moving ball across video frames is?",
+["Object Tracking","Text Classification","Tokenisation","Data Cleaning"],0,
+"Tracking follows objects over time."],
+
+["A pixel is?",
+["A small unit of a digital image","A sentence","A graph","A sound"],0,
+"Digital images contain pixels."],
+
+["Blurry photographs challenge?",
+["Computer Vision","NLP","Translation","Speech generation"],0,
+"Blur reduces visual information."],
+
+["Poor lighting can affect?",
+["Image recognition","Grammar","Translation","Text summarisation"],0,
+"Lighting changes image appearance."],
+
+["A plant disease detector analyses?",
+["Leaf images","Spoken language","Text messages","Music"],0,
+"It examines visual features of leaves."],
+
+["A system identifies traffic lights. It uses?",
+["Computer Vision","NLP","Data entry","Text summarisation"],0,
+"Traffic lights are visual objects."],
+
+["Which is an image classification output?",
+["This image contains a cat","This sentence is positive","The voice says hello","Sales increased"],0,
+"It assigns a label to an image."],
+
+["An object hidden behind another is a CV challenge called?",
+["Occlusion","Tokenisation","Sarcasm","Translation"],0,
+"Occlusion means an object is partly hidden."],
+
+["Changing camera angle may challenge?",
+["Visual recognition","Language translation","Grammar","Speech"],0,
+"Different angles change appearance."],
+
+["Which AI domain works with video frames?",
+["Computer Vision","NLP","Text Analytics","Translation"],0,
+"Video contains visual information."],
+
+["Recognising handwritten digits is?",
+["Computer Vision","NLP only","Data Cleaning","Robotics"],0,
+"Handwriting recognition analyses images."],
+
+["Which task is NOT Computer Vision?",
+["Translating a paragraph","Detecting vehicles","Recognising faces","Classifying images"],0,
+"Paragraph translation is NLP."]
+],
+
+DS:[
+
+["Finding patterns in datasets is?",
+["Data Science","Computer Vision","NLP only","Robotics"],0,
+"Data Science analyses data."],
+
+["A graph showing monthly temperatures is?",
+["Data Visualisation","Speech Recognition","Object Detection","Translation"],0,
+"Charts visually communicate data."],
+
+["Removing errors from a dataset is?",
+["Data Cleaning","Tokenisation","Object Tracking","Speech Synthesis"],0,
+"Data cleaning improves data quality."],
+
+["Predicting future sales using past sales is?",
+["Forecasting","Translation","Image Segmentation","Face Recognition"],0,
+"Past patterns can help forecast."],
+
+["Rows and columns containing marks are?",
+["Structured Data","Video","Speech","Image"],0,
+"Tabular data is structured."],
+
+["Missing data can make analysis?",
+["Less reliable","Always perfect","Unnecessary","A photograph"],0,
+"Incomplete data may reduce reliability."],
+
+["Which chart is useful for trends over time?",
+["Line Graph","Pie Chart always","Photograph","Audio"],0,
+"Line graphs show change over time."],
+
+["Comparing categories is commonly done with?",
+["Bar Graph","Voice Assistant","Video","Paragraph"],0,
+"Bar charts compare categories."],
+
+["Correlation automatically proves causation?",
+["No","Yes, always","Only in graphs","Only in AI"],0,
+"Correlation does not prove causation."],
+
+["Predicting house prices is?",
+["Predictive Analysis","Speech Recognition","Image Detection","Translation"],0,
+"Models can predict numeric outcomes."],
+
+["Input variables used by a model are?",
+["Features","Pixels only","Pronouns","Robots"],0,
+"Features describe input data."],
+
+["Blank cells in a table indicate?",
+["Missing Data","Occlusion","Sarcasm","Tokenisation"],0,
+"Blank values are missing data."],
+
+["A pie chart shows?",
+["Parts of a whole","Sentence grammar","Object location","Sound"],0,
+"Pie charts represent proportions."],
+
+["Unusually extreme values are?",
+["Outliers","Tokens","Pixels","Pronouns"],0,
+"Outliers differ significantly from typical values."],
+
+["Grouping similar records is?",
+["Clustering","Translation","Speech Recognition","Object Tracking"],0,
+"Clustering groups similar examples."],
+
+["Learning from labelled examples is?",
+["Supervised Learning","Unsupervised only","Pragmatics","Image Cropping"],0,
+"Labels guide supervised learning."],
+
+["Protecting personal information is?",
+["Data Privacy","Data Visualisation","Tokenisation","Object Detection"],0,
+"Privacy is an important data concern."],
+
+["Unrepresentative data can lead to?",
+["Bias","Perfect accuracy","No uncertainty","Guaranteed fairness"],0,
+"Biased datasets can produce biased outcomes."],
+
+["A dashboard helps?",
+["Communicate insights","Translate language","Recognise faces","Generate speech"],0,
+"Dashboards present information clearly."],
+
+["Before analysing data, first?",
+["Understand the problem","Delete random rows","Ignore sources","Assume everything is correct"],0,
+"Define the problem before analysis."]
+]
+
+};
+
+
+// Make 100 questions from the question bank.
+// Each concept appears five times with differently worded prompts.
+
+function createQuestions(){
+
+ let base=questionBank[selected];
+ let list=[];
+
+ base.forEach(q=>{
+  for(let n=0;n<5;n++){
+   let variations=[
+    q[0],
+    "Choose the correct answer: "+q[0],
+    "Scenario question: "+q[0],
+    "Which option best answers this? "+q[0],
+    "Think carefully: "+q[0]
+   ];
+
+   list.push({
+    question:variations[n],
+    options:[...q[1]],
+    answer:q[2],
+    explanation:q[3]
+   });
+  }
+ });
+
+ list.sort(()=>Math.random()-0.5);
+ return list;
+}
+
+
+function startQuiz(){
+
+ questions=createQuestions();
+ current=0;
+ marks=0;
+ roundMarks=0;
+
+ document.getElementById("quizArea").style.display="block";
+ document.getElementById("quizArea").scrollIntoView({behavior:"smooth"});
+
+ showQuestion();
+}
+
+
+function showQuestion(){
+
+ answered=false;
+
+ let q=questions[current];
+
+ document.getElementById("round").innerText=
+ "Round "+(Math.floor(current/10)+1)+" / 10";
+
+ document.getElementById("score").innerText=
+ "Total Marks: "+marks+" / 100";
+
+ document.getElementById("progressBar").style.width=
+ current+"%";
+
+ document.getElementById("question").innerText=
+ "Question "+(current+1)+": "+q.question;
+
+ document.getElementById("feedback").innerText="";
+
+ document.getElementById("next").disabled=true;
+
+ let options=document.getElementById("options");
+ options.innerHTML="";
+
+ q.options.forEach((option,i)=>{
+
+  let button=document.createElement("button");
+  button.className="option";
+  button.innerText=String.fromCharCode(65+i)+". "+option;
+
+  button.onclick=()=>checkAnswer(i,button);
+
+  options.appendChild(button);
+ });
+}
+
+
+function checkAnswer(choice,button){
+
+ if(answered)return;
+ answered=true;
+
+ let q=questions[current];
+ let buttons=document.querySelectorAll(".option");
+
+ buttons[q.answer].classList.add("correct");
+
+ if(choice===q.answer){
+
+  marks++;
+  roundMarks++;
+
+  document.getElementById("feedback").innerHTML=
+  "✅ Correct! +1
